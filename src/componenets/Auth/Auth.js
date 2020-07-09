@@ -9,7 +9,6 @@ const Auth = (props) => {
 
   const authenticateHandler = (e) => {
     e.preventDefault();
-    console.log(props.isSignedIn);
     const authData = {
       email: email,
       password: password,

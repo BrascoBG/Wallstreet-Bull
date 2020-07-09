@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Auth from "./componenets/Auth/Auth";
 import Header from "./componenets/Header/Header";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -9,11 +9,10 @@ import History from "./componenets/Navigation/History/History";
 import About from "./componenets/Navigation/About/About";
 
 function App() {
-  const [isSignedIn, setSignedIn] = useState(true);
   return (
     <BrowserRouter>
       <div>
-        {isSignedIn ? <Header /> : null}
+        <Header />
         <Switch>
           <Route path="/buy" component={Buy} />
           <Route path="/sell" component={Sell} />
