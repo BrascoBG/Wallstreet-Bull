@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Auth from "./componenets/Auth/Auth";
+import Header from "./componenets/Header/Header";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Buy from "./componenets/Navigation/Buy/Buy";
+import Sell from "./componenets/Navigation/Sell/Sell";
+import Quote from "./componenets/Navigation/Quote/Quote";
+import History from "./componenets/Navigation/History/History";
+import About from "./componenets/Navigation/About/About";
 
 function App() {
+  const [isSignedIn, setSignedIn] = useState(true);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div>
+        {isSignedIn ? <Header /> : null}
+        <Switch>
+          <Route path="/buy" component={Buy} />
+          <Route path="/sell" component={Sell} />
+          <Route path="/quote" component={Quote} />
+          <Route path="/history" component={History} />
+          <Route path="/about" component={About} />
+          <Route path="/" component={Auth} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
