@@ -7,6 +7,23 @@ const Buy = () => {
   const [shares, setShares] = useState("");
   const [money, setMoney] = useState(5000);
 
+  useEffect(() => {
+    let fireData = [];
+    axios
+      .get("https://wallstreet-bull.firebaseio.com/orders.json")
+      .then((response) => {
+        for (let key in response.data) {
+          fireData.push([...response.data[key]]);
+        }
+        fireData = fireData.splice(-1).pop();
+        setMyData(...myData, fireData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const fetchData = (e) => {
     e.preventDefault();
     const API = `https://cloud.iexapis.com/stable/stock/${company}/quote?token=pk_583772a9158d43bd9e8f55df5c33a5b3`;
@@ -15,7 +32,7 @@ const Buy = () => {
       .then((response) => {
         const resData = {
           shares: parseInt(shares),
-          symbol: company.toLocaleUpperCase(),
+          symbol: company.toUpperCase(),
           companyName: response.data.companyName,
           price: response.data.latestPrice,
         };
@@ -23,20 +40,17 @@ const Buy = () => {
           if (item.symbol === resData.symbol) {
             setMoney(money - resData.shares * resData.price);
             item.shares += +shares;
-            if (response) {
-              console.log("Response");
-              axios
-                .post(
-                  "https://wallstreet-bull.firebaseio.com/orders.json",
-                  myData
-                )
-                .then((response) => {
-                  console.log(response);
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
-            }
+            axios
+              .post(
+                "https://wallstreet-bull.firebaseio.com/orders.json",
+                myData
+              )
+              .then((response) => {
+                console.log(response);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
             setCompany("");
             setShares("");
             return;
