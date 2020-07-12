@@ -34,7 +34,6 @@ const Sell = () => {
       .catch((err) => {
         console.log(err);
       });
-    console.log(data);
   }, []);
 
   return (

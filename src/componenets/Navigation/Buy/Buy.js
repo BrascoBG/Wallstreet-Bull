@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Quote from "../../Quote/Quote";
 import axios from "axios";
 
 const Buy = () => {
@@ -68,14 +69,19 @@ const Buy = () => {
 
   useEffect(() => {
     console.log(myData);
-    axios
-      .post("https://wallstreet-bull.firebaseio.com/orders.json", myData)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
+    if (company !== "") {
+      console.log("company");
+      axios
+        .post("https://wallstreet-bull.firebaseio.com/orders.json", myData)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myData]);
 
   return (
@@ -98,6 +104,7 @@ const Buy = () => {
         />
         <button>BUY</button>
       </form>
+      <Quote />
     </div>
   );
 };
