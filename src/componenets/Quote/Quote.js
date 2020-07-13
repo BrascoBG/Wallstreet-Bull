@@ -5,6 +5,7 @@ const Quote = () => {
   const [company, setCompany] = useState("");
   const [data, setData] = useState([]);
   const API = `https://cloud.iexapis.com/stable/stock/${company}/quote?token=pk_583772a9158d43bd9e8f55df5c33a5b3`;
+
   const checkPrice = () => {
     axios
       .get(API)
@@ -16,9 +17,11 @@ const Quote = () => {
         console.log(err);
       });
   };
+
   useEffect(() => {
     console.log(data);
   }, [data]);
+
   return (
     <div>
       <h1>Quote</h1>

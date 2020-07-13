@@ -16,12 +16,15 @@ const Buy = () => {
         for (let key in response.data) {
           fireData.push([...response.data[key]]);
         }
-        fireData = fireData.splice(-1).pop();
-        setMyData(...myData, fireData);
+        if (response.data !== null) {
+          fireData = fireData.splice(-1).pop();
+          setMyData(...myData, fireData);
+        }
       })
       .catch((err) => {
         console.log(err);
       });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -31,6 +34,7 @@ const Buy = () => {
     axios
       .get(API)
       .then((response) => {
+        console.log(response);
         const resData = {
           shares: parseInt(shares),
           symbol: company.toUpperCase(),
@@ -57,6 +61,7 @@ const Buy = () => {
             return;
           }
         }
+
         setMoney(money - resData.shares * resData.price);
         setMyData([...myData, resData]);
         setCompany("");
@@ -69,7 +74,6 @@ const Buy = () => {
 
   useEffect(() => {
     console.log(myData);
-
     if (company !== "") {
       console.log("company");
       axios

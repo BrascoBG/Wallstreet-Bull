@@ -11,8 +11,8 @@ import About from "./componenets/Navigation/About/About";
 function App() {
   const [signedIn, setSignedIn] = useState(null);
 
-  const callBackFromAuth = (info) => {
-    setSignedIn(info);
+  const callBackFromAuth = (bool) => {
+    setSignedIn(bool);
   };
 
   return (
