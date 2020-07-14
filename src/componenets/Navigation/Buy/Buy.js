@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Quote from "../../Quote/Quote";
+import Spinner from "../../Spinner/Spinner";
 import axios from "axios";
 
 const Buy = () => {
@@ -7,6 +8,7 @@ const Buy = () => {
   const [company, setCompany] = useState("");
   const [shares, setShares] = useState("");
   const [money, setMoney] = useState(5000);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let fireData = [];
@@ -24,7 +26,22 @@ const Buy = () => {
       .catch((err) => {
         console.log(err);
       });
-
+    let myMoney = [];
+    axios
+      .get("https://wallstreet-bull.firebaseio.com/money.json")
+      .then((response) => {
+        for (let key in response.data) {
+          myMoney.push(response.data[key]);
+        }
+        if (response.data !== null) {
+          myMoney = myMoney.splice(-1).pop();
+          setMoney(myMoney);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -35,6 +52,8 @@ const Buy = () => {
       .get(API)
       .then((response) => {
         console.log(response);
+        let myMoney = money - shares * response.data.latestPrice;
+        updateMyMoney(myMoney);
         const resData = {
           shares: parseInt(shares),
           symbol: company.toUpperCase(),
@@ -43,7 +62,6 @@ const Buy = () => {
         };
         for (const item of myData) {
           if (item.symbol === resData.symbol) {
-            setMoney(money - resData.shares * resData.price);
             item.shares += +shares;
             axios
               .post(
@@ -61,8 +79,6 @@ const Buy = () => {
             return;
           }
         }
-
-        setMoney(money - resData.shares * resData.price);
         setMyData([...myData, resData]);
         setCompany("");
         setShares("");
@@ -72,10 +88,20 @@ const Buy = () => {
       });
   };
 
+  const updateMyMoney = (myMoney) => {
+    setMoney(myMoney);
+    axios
+      .post("https://wallstreet-bull.firebaseio.com/money.json", myMoney)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
-    console.log(myData);
     if (company !== "") {
-      console.log("company");
       axios
         .post("https://wallstreet-bull.firebaseio.com/orders.json", myData)
         .then((response) => {
@@ -90,7 +116,7 @@ const Buy = () => {
 
   return (
     <div>
-      <h1>Your money {money}</h1>
+      <h1>{loading ? <Spinner /> : `Your money ${money.toFixed(2)}`}</h1>
       <hr />
       <h3>Buy Stock</h3>
       <form onSubmit={fetchData}>
@@ -99,12 +125,14 @@ const Buy = () => {
           placeholder="Company"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
+          required
         />
         <input
           type="number"
           placeholder="Shares"
           value={shares}
           onChange={(e) => setShares(e.target.value)}
+          required
         />
         <button>BUY</button>
       </form>
