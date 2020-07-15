@@ -18,8 +18,8 @@ const Header = (props) => {
           </NavLink>
         </li>
         <li className={styles.Li}>
-          <NavLink activeClassName={styles.active} to="/quote">
-            Quote
+          <NavLink activeClassName={styles.active} to="/wallet">
+            Wallet
           </NavLink>
         </li>
         <li className={styles.Li}>

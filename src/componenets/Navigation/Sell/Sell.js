@@ -1,10 +1,13 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Spinner from "../../Spinner/Spinner";
+import Quote from "../../Quote/Quote";
 import axios from "axios";
 
 const Sell = () => {
   const [data, setData] = useState([]);
   const [money, setMoney] = useState(null);
+  const [history, setHistory] = useState([]);
 
   useEffect(() => {
     let newData = [];
@@ -38,7 +41,21 @@ const Sell = () => {
       .catch((err) => {
         console.log(err);
       });
-
+    let myHistory = [];
+    axios
+      .get("https://wallstreet-bull.firebaseio.com/history.json")
+      .then((response) => {
+        for (let key in response.data) {
+          myHistory.push(response.data[key]);
+        }
+        if (response.data !== null) {
+          myHistory = myHistory.splice(-1).pop();
+          setHistory(...history, myHistory);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -55,6 +72,21 @@ const Sell = () => {
         });
     }
     setData(updatedData);
+    let resData;
+    for (const item of history) {
+      if (item.symbol === symbol) {
+        setHistory([
+          ...history,
+          (resData = {
+            shares: item.shares,
+            buyOrSell: true,
+            companyName: item.companyName,
+            symbol: item.symbol,
+            price: item.price,
+          }),
+        ]);
+      }
+    }
     axios
       .get(
         `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_583772a9158d43bd9e8f55df5c33a5b3`
@@ -74,6 +106,17 @@ const Sell = () => {
 
   useEffect(() => {
     axios
+      .post("https://wallstreet-bull.firebaseio.com/history.json", history)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [history]);
+
+  useEffect(() => {
+    axios
       .post("https://wallstreet-bull.firebaseio.com/money.json", money)
       .then((response) => {
         console.log(response);
@@ -84,7 +127,6 @@ const Sell = () => {
   }, [money]);
 
   useEffect(() => {
-    console.log(data);
     axios
       .post("https://wallstreet-bull.firebaseio.com/orders.json", data)
       .then((response) => {
@@ -109,6 +151,7 @@ const Sell = () => {
             </ul>
           ))
         : null}
+      <Quote />
     </div>
   );
 };
