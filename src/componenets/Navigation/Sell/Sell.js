@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Spinner from "../../Spinner/Spinner";
 import Quote from "../../Quote/Quote";
 import axios from "axios";
 
-const Sell = () => {
+const Sell = (props) => {
   const [data, setData] = useState([]);
   const [money, setMoney] = useState(null);
   const [history, setHistory] = useState([]);
@@ -12,13 +13,14 @@ const Sell = () => {
   useEffect(() => {
     let newData = [];
     axios
-      .get("https://wallstreet-bull.firebaseio.com/orders.json")
+      .get(
+        "https://wallstreet-bull.firebaseio.com/orders.json?auth=" + props.token
+      )
       .then((response) => {
         console.log(response);
         for (let key in response.data) {
           newData.push([...response.data[key]]);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         newData = newData.splice(-1).pop();
         setData(...data, newData);
       })
@@ -27,13 +29,14 @@ const Sell = () => {
       });
     let myMoney = [];
     axios
-      .get("https://wallstreet-bull.firebaseio.com/money.json")
+      .get(
+        "https://wallstreet-bull.firebaseio.com/money.json?auth=" + props.token
+      )
       .then((response) => {
         for (let key in response.data) {
           myMoney.push(response.data[key]);
         }
         if (response.data !== null) {
-          // eslint-disable-next-line react-hooks/exhaustive-deps
           myMoney = myMoney.splice(-1).pop();
         }
         setMoney(myMoney);
@@ -43,7 +46,10 @@ const Sell = () => {
       });
     let myHistory = [];
     axios
-      .get("https://wallstreet-bull.firebaseio.com/history.json")
+      .get(
+        "https://wallstreet-bull.firebaseio.com/history.json?auth=" +
+          props.token
+      )
       .then((response) => {
         for (let key in response.data) {
           myHistory.push(response.data[key]);
@@ -56,14 +62,16 @@ const Sell = () => {
       .catch((err) => {
         console.log(err);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const sellShares = (symbol) => {
     const updatedData = data.filter((company) => company.symbol !== symbol);
     if (updatedData.length === 0) {
       axios
-        .delete("https://wallstreet-bull.firebaseio.com/orders.json")
+        .delete(
+          "https://wallstreet-bull.firebaseio.com/orders.json?auth=" +
+            props.token
+        )
         .then((response) => {
           console.log(response);
         })
@@ -106,7 +114,11 @@ const Sell = () => {
 
   useEffect(() => {
     axios
-      .post("https://wallstreet-bull.firebaseio.com/history.json", history)
+      .post(
+        "https://wallstreet-bull.firebaseio.com/history.json?auth=" +
+          props.token,
+        history
+      )
       .then((response) => {
         console.log(response);
       })
@@ -117,7 +129,10 @@ const Sell = () => {
 
   useEffect(() => {
     axios
-      .post("https://wallstreet-bull.firebaseio.com/money.json", money)
+      .post(
+        "https://wallstreet-bull.firebaseio.com/money.json?auth=" + props.token,
+        money
+      )
       .then((response) => {
         console.log(response);
       })
@@ -128,7 +143,11 @@ const Sell = () => {
 
   useEffect(() => {
     axios
-      .post("https://wallstreet-bull.firebaseio.com/orders.json", data)
+      .post(
+        "https://wallstreet-bull.firebaseio.com/orders.json?auth=" +
+          props.token,
+        data
+      )
       .then((response) => {
         console.log(response);
       })
@@ -140,6 +159,7 @@ const Sell = () => {
   return (
     <div>
       <h1>Sell componenet</h1>
+
       {money ? <h1>Your money {money.toFixed(2)}</h1> : <Spinner />}
       {data
         ? data.map((item) => (

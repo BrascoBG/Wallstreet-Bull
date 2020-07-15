@@ -48,7 +48,7 @@ const Auth = (props) => {
     props.call(isLoggedIn);
     if (token !== null) {
       setLoggedIn(false);
-      props.call(isLoggedIn);
+      props.call(isLoggedIn, token);
     }
   }, [props, isLoggedIn, token]);
 

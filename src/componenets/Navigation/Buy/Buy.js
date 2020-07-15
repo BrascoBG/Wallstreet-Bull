@@ -3,7 +3,7 @@ import Quote from "../../Quote/Quote";
 import Spinner from "../../Spinner/Spinner";
 import axios from "axios";
 
-const Buy = () => {
+const Buy = (props) => {
   const [myData, setMyData] = useState([]);
   const [company, setCompany] = useState("");
   const [shares, setShares] = useState("");
@@ -18,7 +18,9 @@ const Buy = () => {
   useEffect(() => {
     let fireData = [];
     axios
-      .get("https://wallstreet-bull.firebaseio.com/orders.json")
+      .get(
+        "https://wallstreet-bull.firebaseio.com/orders.json?auth=" + props.token
+      )
       .then((response) => {
         for (let key in response.data) {
           fireData.push([...response.data[key]]);
@@ -33,7 +35,9 @@ const Buy = () => {
       });
     let myMoney = [];
     axios
-      .get("https://wallstreet-bull.firebaseio.com/money.json")
+      .get(
+        "https://wallstreet-bull.firebaseio.com/money.json?auth=" + props.token
+      )
       .then((response) => {
         for (let key in response.data) {
           myMoney.push(response.data[key]);
@@ -49,7 +53,10 @@ const Buy = () => {
       });
     let myHistory = [];
     axios
-      .get("https://wallstreet-bull.firebaseio.com/history.json")
+      .get(
+        "https://wallstreet-bull.firebaseio.com/history.json?auth=" +
+          props.token
+      )
       .then((response) => {
         for (let key in response.data) {
           myHistory.push(response.data[key]);
@@ -89,7 +96,8 @@ const Buy = () => {
             item.shares += +shares;
             axios
               .post(
-                "https://wallstreet-bull.firebaseio.com/orders.json",
+                "https://wallstreet-bull.firebaseio.com/orders.json?auth=" +
+                  props.token,
                 myData
               )
               .then((response) => {
@@ -115,7 +123,10 @@ const Buy = () => {
   const updateMyMoney = (myMoney) => {
     setMoney(myMoney);
     axios
-      .post("https://wallstreet-bull.firebaseio.com/money.json", myMoney)
+      .post(
+        "https://wallstreet-bull.firebaseio.com/money.json?auth=" + props.token,
+        myMoney
+      )
       .then((response) => {
         console.log(response);
       })
@@ -128,7 +139,11 @@ const Buy = () => {
     console.log("History", history);
     if (company !== "") {
       axios
-        .post("https://wallstreet-bull.firebaseio.com/history.json", history)
+        .post(
+          "https://wallstreet-bull.firebaseio.com/history.json?auth=" +
+            props.token,
+          history
+        )
         .then((response) => {
           console.log(response);
         })
@@ -143,7 +158,11 @@ const Buy = () => {
     console.log("My Data", myData);
     if (company !== "") {
       axios
-        .post("https://wallstreet-bull.firebaseio.com/orders.json", myData)
+        .post(
+          "https://wallstreet-bull.firebaseio.com/orders.json?auth=" +
+            props.token,
+          myData
+        )
         .then((response) => {
           console.log(response);
         })
