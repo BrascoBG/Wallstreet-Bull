@@ -9,6 +9,11 @@ const Buy = () => {
   const [shares, setShares] = useState("");
   const [money, setMoney] = useState(5000);
   const [loading, setLoading] = useState(true);
+  const [history, setHistory] = useState([]);
+  let day = new Date().getDate();
+  let month = new Date().getMonth();
+  let year = new Date().getFullYear();
+  let fullDate = `${day}/${month + 1}/${year}`;
 
   useEffect(() => {
     let fireData = [];
@@ -42,6 +47,22 @@ const Buy = () => {
       .catch((err) => {
         console.log(err);
       });
+    let myHistory = [];
+    axios
+      .get("https://wallstreet-bull.firebaseio.com/history.json")
+      .then((response) => {
+        for (let key in response.data) {
+          myHistory.push(response.data[key]);
+        }
+        if (response.data !== null) {
+          myHistory = myHistory.splice(-1).pop();
+          setHistory(...history, myHistory);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -59,7 +80,10 @@ const Buy = () => {
           symbol: company.toUpperCase(),
           companyName: response.data.companyName,
           price: response.data.latestPrice,
+          buyOrSell: false,
+          date: fullDate,
         };
+        setHistory([...history, resData]);
         for (const item of myData) {
           if (item.symbol === resData.symbol) {
             item.shares += +shares;
@@ -101,6 +125,21 @@ const Buy = () => {
   };
 
   useEffect(() => {
+    console.log("History", history);
+    if (company !== "") {
+      axios
+        .post("https://wallstreet-bull.firebaseio.com/history.json", history)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [history]);
+
+  useEffect(() => {
+    console.log("My Data", myData);
     if (company !== "") {
       axios
         .post("https://wallstreet-bull.firebaseio.com/orders.json", myData)
