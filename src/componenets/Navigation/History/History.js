@@ -6,16 +6,20 @@ const History = (props) => {
 
   useEffect(() => {
     let myHistory = [];
+    let id = props.userId;
+    let token = props.token;
+    console.log("ID", id);
+    console.log("TOKEN", token);
     axios
       .get(
-        "https://wallstreet-bull.firebaseio.com/history.json?auth=" +
-          props.token
+        `https://wallstreet-bull.firebaseio.com/history.json?orderBy="userId"&equalTo="P38oUILIgbadDUcIRsWhpCv3e7D2"`
       )
       .then((response) => {
         for (let key in response.data) {
           myHistory.push([...response.data[key]]);
         }
         myHistory = myHistory.splice(-1).pop();
+        console.log(response);
         console.log(myHistory);
         setHistory(myHistory);
       })

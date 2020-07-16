@@ -91,6 +91,7 @@ const Sell = (props) => {
             companyName: item.companyName,
             symbol: item.symbol,
             price: item.price,
+            userId: props.userId,
           }),
         ]);
       }
@@ -100,7 +101,6 @@ const Sell = (props) => {
         `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_583772a9158d43bd9e8f55df5c33a5b3`
       )
       .then((response) => {
-        console.log("sell response", response);
         for (let item of data) {
           if (item.symbol === symbol) {
             setMoney(money + response.data.latestPrice * item.shares);
@@ -128,17 +128,20 @@ const Sell = (props) => {
   }, [history]);
 
   useEffect(() => {
-    axios
-      .post(
-        "https://wallstreet-bull.firebaseio.com/money.json?auth=" + props.token,
-        money
-      )
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (money !== null) {
+      axios
+        .post(
+          "https://wallstreet-bull.firebaseio.com/money.json?auth=" +
+            props.token,
+          money
+        )
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [money]);
 
   useEffect(() => {

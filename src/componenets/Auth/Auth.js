@@ -10,6 +10,7 @@ const Auth = (props) => {
   const [signInUpSwitch, setSignInUpSwitch] = useState(true);
   const [isLoggedIn, setLoggedIn] = useState(true);
   const [token, setToken] = useState(null);
+  const [userId, setUserId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const authenticateHandler = (e) => {
@@ -32,6 +33,7 @@ const Auth = (props) => {
         console.log(response);
         setSignInUpSwitch(false);
         setToken(response.data.idToken);
+        setUserId(response.data.localId);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -48,7 +50,7 @@ const Auth = (props) => {
     props.call(isLoggedIn);
     if (token !== null) {
       setLoggedIn(false);
-      props.call(isLoggedIn, token);
+      props.call(isLoggedIn, token, userId);
     }
   }, [props, isLoggedIn, token]);
 
@@ -58,16 +60,18 @@ const Auth = (props) => {
         <form className={styles.Form} onSubmit={authenticateHandler}>
           <h2>{signInUpSwitch ? "Register a new account" : "Sign In"}</h2>
           <input
-            type="text"
+            type="email"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
+            required
           />
           <input
             type="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            required
           />
           <button>{signInUpSwitch ? "REGISTER" : "SIGN IN"}</button>
           {!isLoggedIn ? <Redirect to="/buy" /> : null}

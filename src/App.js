@@ -11,10 +11,12 @@ import About from "./componenets/Navigation/About/About";
 function App() {
   const [signedIn, setSignedIn] = useState(null);
   const [token, setToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
-  const callBackFromAuth = (bool, token) => {
+  const callBackFromAuth = (bool, token, id) => {
     setSignedIn(bool);
     setToken(token);
+    setUserId(id);
   };
 
   return (
@@ -22,10 +24,19 @@ function App() {
       <div>
         {!signedIn ? <Header signed={signedIn} /> : null}
         <Switch>
-          <Route path="/buy" render={() => <Buy token={token} />} />
-          <Route path="/sell" render={() => <Sell token={token} />} />
+          <Route
+            path="/buy"
+            render={() => <Buy userId={userId} token={token} />}
+          />
+          <Route
+            path="/sell"
+            render={() => <Sell userId={userId} token={token} />}
+          />
           <Route path="/wallet" component={Wallet} />
-          <Route path="/history" render={() => <History token={token} />} />
+          <Route
+            path="/history"
+            render={() => <History userId={userId} token={token} />}
+          />
           <Route path="/about" component={About} />
           <Route path="/" render={() => <Auth call={callBackFromAuth} />} />
         </Switch>

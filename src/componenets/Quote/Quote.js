@@ -18,10 +18,6 @@ const Quote = () => {
       });
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   return (
     <div>
       <h1>Quote</h1>

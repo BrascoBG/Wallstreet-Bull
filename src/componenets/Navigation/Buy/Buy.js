@@ -89,6 +89,7 @@ const Buy = (props) => {
           price: response.data.latestPrice,
           buyOrSell: false,
           date: fullDate,
+          userId: props.userId,
         };
         setHistory([...history, resData]);
         for (const item of myData) {
@@ -136,7 +137,6 @@ const Buy = (props) => {
   };
 
   useEffect(() => {
-    console.log("History", history);
     if (company !== "") {
       axios
         .post(
@@ -155,7 +155,6 @@ const Buy = (props) => {
   }, [history]);
 
   useEffect(() => {
-    console.log("My Data", myData);
     if (company !== "") {
       axios
         .post(
