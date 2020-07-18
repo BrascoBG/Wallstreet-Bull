@@ -13,9 +13,7 @@ const Sell = (props) => {
   useEffect(() => {
     let newData = [];
     axios
-      .get(
-        "https://wallstreet-bull.firebaseio.com/orders.json?auth=" + props.token
-      )
+      .get("https://wallstreet-bull.firebaseio.com/orders.json")
       .then((response) => {
         console.log(response);
         for (let key in response.data) {
@@ -29,9 +27,7 @@ const Sell = (props) => {
       });
     let myMoney = [];
     axios
-      .get(
-        "https://wallstreet-bull.firebaseio.com/money.json?auth=" + props.token
-      )
+      .get("https://wallstreet-bull.firebaseio.com/money.json")
       .then((response) => {
         for (let key in response.data) {
           myMoney.push(response.data[key]);
@@ -46,10 +42,7 @@ const Sell = (props) => {
       });
     let myHistory = [];
     axios
-      .get(
-        "https://wallstreet-bull.firebaseio.com/history.json?auth=" +
-          props.token
-      )
+      .get("https://wallstreet-bull.firebaseio.com/history.json")
       .then((response) => {
         for (let key in response.data) {
           myHistory.push(response.data[key]);
@@ -68,10 +61,7 @@ const Sell = (props) => {
     const updatedData = data.filter((company) => company.symbol !== symbol);
     if (updatedData.length === 0) {
       axios
-        .delete(
-          "https://wallstreet-bull.firebaseio.com/orders.json?auth=" +
-            props.token
-        )
+        .delete("https://wallstreet-bull.firebaseio.com/orders.json")
         .then((response) => {
           console.log(response);
         })
@@ -80,8 +70,9 @@ const Sell = (props) => {
         });
     }
     setData(updatedData);
+    console.log(data);
     let resData;
-    for (const item of history) {
+    for (const item of data) {
       if (item.symbol === symbol) {
         setHistory([
           ...history,
@@ -91,7 +82,7 @@ const Sell = (props) => {
             companyName: item.companyName,
             symbol: item.symbol,
             price: item.price,
-            userId: props.userId,
+            userId: item.userId,
           }),
         ]);
       }
@@ -113,12 +104,10 @@ const Sell = (props) => {
   };
 
   useEffect(() => {
+    console.log(history);
+
     axios
-      .post(
-        "https://wallstreet-bull.firebaseio.com/history.json?auth=" +
-          props.token,
-        history
-      )
+      .post("https://wallstreet-bull.firebaseio.com/history.json", history)
       .then((response) => {
         console.log(response);
       })
@@ -130,11 +119,7 @@ const Sell = (props) => {
   useEffect(() => {
     if (money !== null) {
       axios
-        .post(
-          "https://wallstreet-bull.firebaseio.com/money.json?auth=" +
-            props.token,
-          money
-        )
+        .post("https://wallstreet-bull.firebaseio.com/money.json", money)
         .then((response) => {
           console.log(response);
         })
@@ -146,11 +131,7 @@ const Sell = (props) => {
 
   useEffect(() => {
     axios
-      .post(
-        "https://wallstreet-bull.firebaseio.com/orders.json?auth=" +
-          props.token,
-        data
-      )
+      .post("https://wallstreet-bull.firebaseio.com/orders.json", data)
       .then((response) => {
         console.log(response);
       })
@@ -165,14 +146,20 @@ const Sell = (props) => {
 
       {money ? <h1>Your money {money.toFixed(2)}</h1> : <Spinner />}
       {data
-        ? data.map((item) => (
-            <ul key={item.symbol}>
-              <li>
-                {item.companyName} - ({item.shares})
-                <button onClick={() => sellShares(item.symbol)}>Sell</button>
-              </li>
-            </ul>
-          ))
+        ? data.map((item) => {
+            if (item.userId === props.userId) {
+              return (
+                <ul key={item.symbol}>
+                  <li>
+                    {item.companyName} - ({item.shares})
+                    <button onClick={() => sellShares(item.symbol)}>
+                      Sell
+                    </button>
+                  </li>
+                </ul>
+              );
+            }
+          })
         : null}
       <Quote />
     </div>

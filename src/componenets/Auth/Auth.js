@@ -52,7 +52,7 @@ const Auth = (props) => {
       setLoggedIn(false);
       props.call(isLoggedIn, token, userId);
     }
-  }, [props, isLoggedIn, token]);
+  }, [props, isLoggedIn, token, userId]);
 
   return (
     <div>

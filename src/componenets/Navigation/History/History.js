@@ -11,16 +11,12 @@ const History = (props) => {
     console.log("ID", id);
     console.log("TOKEN", token);
     axios
-      .get(
-        `https://wallstreet-bull.firebaseio.com/history.json?orderBy="userId"&equalTo="P38oUILIgbadDUcIRsWhpCv3e7D2"`
-      )
+      .get(`https://wallstreet-bull.firebaseio.com/history.json`)
       .then((response) => {
         for (let key in response.data) {
           myHistory.push([...response.data[key]]);
         }
         myHistory = myHistory.splice(-1).pop();
-        console.log(response);
-        console.log(myHistory);
         setHistory(myHistory);
       })
       .catch((err) => {
@@ -33,14 +29,18 @@ const History = (props) => {
     <div>
       <h1>History componenet</h1>
       {history
-        ? history.map((item, index) => (
-            <ul key={index}>
-              <li>
-                {item.companyName} {item.price} ({item.shares}){" "}
-                {item.buyOrSell ? "Sell" : "Purchased on: " + item.date}
-              </li>
-            </ul>
-          ))
+        ? history.map((item, index) => {
+            if (item.userId === props.userId) {
+              return (
+                <ul key={index}>
+                  <li>
+                    {item.companyName} {item.price} ({item.shares}){" "}
+                    {item.buyOrSell ? "Sell" : "Purchased on: " + item.date}
+                  </li>
+                </ul>
+              );
+            }
+          })
         : ""}
     </div>
   );
