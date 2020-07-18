@@ -86,7 +86,7 @@ const Buy = (props) => {
         };
         setHistory([...history, resData]);
         for (const item of myData) {
-          if (item.symbol === resData.symbol) {
+          if (item.symbol === resData.symbol && item.userId === props.userId) {
             item.shares += +shares;
             axios
               .post(

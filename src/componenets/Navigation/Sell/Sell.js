@@ -58,19 +58,26 @@ const Sell = (props) => {
   }, []);
 
   const sellShares = (symbol) => {
-    const updatedData = data.filter((company) => company.symbol !== symbol);
-    if (updatedData.length === 0) {
-      axios
-        .delete("https://wallstreet-bull.firebaseio.com/orders.json")
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    let updatedData = data.filter(
+      (company) => company.symbol !== symbol || company.userId !== props.userId
+    );
+    // for (let item of data) {
+    //   if (item.userId === props.userId && item.symbol === symbol) {
+    //     console.log(item.symbol);
+    //     //updatedData = data.filter((company) => company.symbol !== item.symbol);
+    //   }
+    // }
+    // if (updatedData.length === 0) {
+    //   axios
+    //     .delete("https://wallstreet-bull.firebaseio.com/orders.json")
+    //     .then((response) => {
+    //       console.log(response);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }
     setData(updatedData);
-    console.log(data);
     let resData;
     for (const item of data) {
       if (item.symbol === symbol) {
