@@ -17,7 +17,11 @@ const History = (props) => {
           myHistory.push([...response.data[key]]);
         }
         myHistory = myHistory.splice(-1).pop();
-        setHistory(myHistory);
+        const filteredHistory = myHistory.filter(
+          (company) => company.userId === props.userId
+        );
+        setHistory(filteredHistory);
+        console.log(filteredHistory);
       })
       .catch((err) => {
         console.log(err);

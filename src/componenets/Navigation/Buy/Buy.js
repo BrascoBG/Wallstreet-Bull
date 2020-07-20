@@ -7,7 +7,7 @@ const Buy = (props) => {
   const [myData, setMyData] = useState([]);
   const [company, setCompany] = useState("");
   const [shares, setShares] = useState("");
-  const [money, setMoney] = useState(5000);
+  const [money, setMoney] = useState([]);
   const [loading, setLoading] = useState(true);
   const [history, setHistory] = useState([]);
   let day = new Date().getDate();
@@ -40,7 +40,8 @@ const Buy = (props) => {
         }
         if (response.data !== null) {
           myMoney = myMoney.splice(-1).pop();
-          setMoney(myMoney);
+          const upp = myMoney.splice(-1).pop();
+          setMoney(...money, upp);
         }
         setLoading(false);
       })
@@ -68,13 +69,14 @@ const Buy = (props) => {
 
   const fetchData = (e) => {
     e.preventDefault();
+    console.log(money);
     const API = `https://cloud.iexapis.com/stable/stock/${company}/quote?token=pk_583772a9158d43bd9e8f55df5c33a5b3`;
     axios
       .get(API)
       .then((response) => {
         console.log(response);
-        let myMoney = money - shares * response.data.latestPrice;
-        updateMyMoney(myMoney);
+        let myMoney = money.money - shares * response.data.latestPrice;
+        console.log(myMoney);
         const resData = {
           shares: parseInt(shares),
           symbol: company.toUpperCase(),
@@ -113,17 +115,19 @@ const Buy = (props) => {
       });
   };
 
-  const updateMyMoney = (myMoney) => {
-    setMoney(myMoney);
-    axios
-      .post("https://wallstreet-bull.firebaseio.com/money.json", myMoney)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  useEffect(() => {
+    console.log(money);
+    if (company !== "") {
+      axios
+        .post("https://wallstreet-bull.firebaseio.com/money.json", money)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [money]);
 
   useEffect(() => {
     if (company !== "") {
@@ -155,7 +159,7 @@ const Buy = (props) => {
 
   return (
     <div>
-      <h1>{loading ? <Spinner /> : `Your money ${money.toFixed(2)}`}</h1>
+      <h1>{loading ? <Spinner /> : `Your money ${money}`}</h1>
       <hr />
       <h3>Buy Stock</h3>
       <form onSubmit={fetchData}>
