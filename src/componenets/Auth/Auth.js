@@ -57,6 +57,7 @@ const Auth = (props) => {
   return (
     <div>
       <div className={styles.Auth}>
+        <h1>test@test.bg</h1>
         <form className={styles.Form} onSubmit={authenticateHandler}>
           <h2>{signInUpSwitch ? "Register a new account" : "Sign In"}</h2>
           <input
