@@ -41,11 +41,6 @@ const Buy = (props) => {
         }
         if (response.data !== null) {
           myMoney = myMoney.splice(-1).pop();
-          for (const item of myMoney) {
-            if (item.userId === props.userId) {
-              setDisplayMoney(item.money);
-            }
-          }
           setMoney(...money, myMoney);
         }
         setLoading(false);
@@ -124,6 +119,15 @@ const Buy = (props) => {
   };
 
   useEffect(() => {
+    let updatedMoney;
+    for (const item of money) {
+      if (item.userId === props.userId) {
+        updatedMoney = item.money;
+      }
+    }
+    if (updatedMoney !== undefined) {
+      setDisplayMoney(updatedMoney);
+    }
     if (company !== "") {
       axios
         .post("https://wallstreet-bull.firebaseio.com/money.json", money)
