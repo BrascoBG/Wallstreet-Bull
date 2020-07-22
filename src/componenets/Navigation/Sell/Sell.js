@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Spinner from "../../Spinner/Spinner";
 import Quote from "../../Quote/Quote";
@@ -10,6 +8,7 @@ const Sell = (props) => {
   const [money, setMoney] = useState([]);
   const [displayMoney, setDisplayMoney] = useState(5000);
   const [history, setHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let newData = [];
@@ -37,6 +36,7 @@ const Sell = (props) => {
           myMoney = myMoney.splice(-1).pop();
           setMoney(...money, myMoney);
         }
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -56,6 +56,7 @@ const Sell = (props) => {
       .catch((err) => {
         console.log(err);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const sellShares = (symbol) => {
@@ -63,6 +64,7 @@ const Sell = (props) => {
       (company) => company.symbol !== symbol || company.userId !== props.userId
     );
     setData(updatedData);
+    // eslint-disable-next-line no-unused-vars
     let resData;
     for (const item of data) {
       if (item.symbol === symbol) {
@@ -132,6 +134,7 @@ const Sell = (props) => {
           console.log(err);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [money]);
 
   useEffect(() => {
@@ -149,9 +152,10 @@ const Sell = (props) => {
     <div>
       <h1>Sell componenet</h1>
 
-      {<h1>Your money {displayMoney.toFixed(2)}</h1>}
+      {loading ? <Spinner /> : <h1>Your money {displayMoney.toFixed(2)}</h1>}
       {data
-        ? data.map((item) => {
+        ? // eslint-disable-next-line array-callback-return
+          data.map((item) => {
             if (item.userId === props.userId) {
               return (
                 <ul key={item.symbol}>

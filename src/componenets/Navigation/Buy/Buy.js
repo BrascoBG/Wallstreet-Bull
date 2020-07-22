@@ -138,6 +138,7 @@ const Buy = (props) => {
           console.log(err);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [money]);
 
   useEffect(() => {

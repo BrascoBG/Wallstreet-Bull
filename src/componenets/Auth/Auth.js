@@ -12,6 +12,7 @@ const Auth = (props) => {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const authenticateHandler = (e) => {
     e.preventDefault();
@@ -36,8 +37,9 @@ const Auth = (props) => {
         setUserId(response.data.localId);
         setIsLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
+        errorMessage(error.response.data.error.message);
         setIsLoading(false);
       });
   };
@@ -53,6 +55,22 @@ const Auth = (props) => {
       props.call(isLoggedIn, token, userId);
     }
   }, [props, isLoggedIn, token, userId]);
+
+  const errorMessage = (message) => {
+    let myMessage = message;
+    if (
+      message === "WEAK_PASSWORD : Password should be at least 6 characters"
+    ) {
+      myMessage = "WEAK PASSWORD : Password should be at least 6 characters ";
+    } else if (message === "EMAIL_EXISTS") {
+      myMessage = "Email already exist!";
+    } else if (message === "INVALID_PASSWORD") {
+      myMessage = "Invalid Password!";
+    } else if (message === "EMAIL_NOT_FOUND") {
+      myMessage = "Email Not Found!";
+    }
+    setError(myMessage);
+  };
 
   return (
     <div>
@@ -75,6 +93,7 @@ const Auth = (props) => {
             required
           />
           <button>{signInUpSwitch ? "REGISTER" : "SIGN IN"}</button>
+          {isLoading ? "" : <p>{error}</p>}
           {!isLoggedIn ? <Redirect to="/buy" /> : null}
         </form>
         <button onClick={signeInRegisterHandler}>

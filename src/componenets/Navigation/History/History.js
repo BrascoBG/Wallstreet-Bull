@@ -33,7 +33,8 @@ const History = (props) => {
     <div>
       <h1>History componenet</h1>
       {history
-        ? history.map((item, index) => {
+        ? // eslint-disable-next-line array-callback-return
+          history.map((item, index) => {
             if (item.userId === props.userId) {
               return (
                 <ul key={index}>
