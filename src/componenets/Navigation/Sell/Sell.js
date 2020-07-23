@@ -13,7 +13,9 @@ const Sell = (props) => {
   useEffect(() => {
     let newData = [];
     axios
-      .get("https://wallstreet-bull.firebaseio.com/orders.json")
+      .get(
+        `https://wallstreet-bull.firebaseio.com/orders.json?auth=${props.token}`
+      )
       .then((response) => {
         console.log(response);
         for (let key in response.data) {
@@ -27,7 +29,9 @@ const Sell = (props) => {
       });
     let myMoney = [];
     axios
-      .get("https://wallstreet-bull.firebaseio.com/money.json")
+      .get(
+        `https://wallstreet-bull.firebaseio.com/money.json?auth=${props.token}`
+      )
       .then((response) => {
         for (let key in response.data) {
           myMoney.push([...response.data[key]]);
@@ -43,7 +47,9 @@ const Sell = (props) => {
       });
     let myHistory = [];
     axios
-      .get("https://wallstreet-bull.firebaseio.com/history.json")
+      .get(
+        `https://wallstreet-bull.firebaseio.com/history.json?auth=${props.token}`
+      )
       .then((response) => {
         for (let key in response.data) {
           myHistory.push(response.data[key]);
@@ -105,13 +111,17 @@ const Sell = (props) => {
 
   useEffect(() => {
     axios
-      .post("https://wallstreet-bull.firebaseio.com/history.json", history)
+      .post(
+        `https://wallstreet-bull.firebaseio.com/history.json?auth=${props.token}`,
+        history
+      )
       .then((response) => {
         console.log(response);
       })
       .catch((err) => {
         console.log(err);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
 
   useEffect(() => {
@@ -126,7 +136,10 @@ const Sell = (props) => {
     }
     if (money !== null) {
       axios
-        .post("https://wallstreet-bull.firebaseio.com/money.json", money)
+        .post(
+          `https://wallstreet-bull.firebaseio.com/money.json?auth=${props.token}`,
+          money
+        )
         .then((response) => {
           console.log(response);
         })
@@ -139,13 +152,17 @@ const Sell = (props) => {
 
   useEffect(() => {
     axios
-      .post("https://wallstreet-bull.firebaseio.com/orders.json", data)
+      .post(
+        `https://wallstreet-bull.firebaseio.com/orders.json?auth=${props.token}`,
+        data
+      )
       .then((response) => {
         console.log(response);
       })
       .catch((err) => {
         console.log(err);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return (

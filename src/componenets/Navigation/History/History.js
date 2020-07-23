@@ -11,7 +11,7 @@ const History = (props) => {
     console.log("ID", id);
     console.log("TOKEN", token);
     axios
-      .get(`https://wallstreet-bull.firebaseio.com/history.json`)
+      .get(`https://wallstreet-bull.firebaseio.com/history.json?auth=${token}`)
       .then((response) => {
         for (let key in response.data) {
           myHistory.push([...response.data[key]]);

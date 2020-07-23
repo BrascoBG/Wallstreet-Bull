@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import styles from "./Auth.module.css";
 import axios from "axios";
 import Spinner from "../Spinner/Spinner";
+import Bull from "../../assets/bull.png";
 
 const Auth = (props) => {
   const [email, setEmail] = useState("");
@@ -75,30 +76,62 @@ const Auth = (props) => {
   return (
     <div>
       <div className={styles.Auth}>
-        <h1>test@test.bg</h1>
-        <form className={styles.Form} onSubmit={authenticateHandler}>
-          <h2>{signInUpSwitch ? "Register a new account" : "Sign In"}</h2>
-          <input
-            type="email"
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            required
-          />
-          <button>{signInUpSwitch ? "REGISTER" : "SIGN IN"}</button>
-          {isLoading ? "" : <p>{error}</p>}
-          {!isLoggedIn ? <Redirect to="/buy" /> : null}
-        </form>
-        <button onClick={signeInRegisterHandler}>
-          {signInUpSwitch ? "I have an account" : "Register"}
-        </button>
+        <h1>
+          Wall Street{" "}
+          <img
+            style={{ width: "200px", height: "auto" }}
+            src={Bull}
+            alt="Bull"
+          />{" "}
+          Bull
+        </h1>
+        <hr style={{ color: "red" }} />
+        <h2>
+          Application where you can trade shares of the most famous
+          international comapanies like Apple, Microsoft, Google, etc.
+        </h2>
+        <div className={styles.Flex}>
+          <div className={styles.SignSwitch}>
+            <h3>
+              If you visit this page for first time you can register and become
+              WallStreet Bull
+            </h3>
+            <hr />
+            <h3>
+              If you you are a WallStreet Bull already click the button below to
+              SIGN IN
+            </h3>
+            <button className={styles.Toggle} onClick={signeInRegisterHandler}>
+              {signInUpSwitch
+                ? "I have an account already"
+                : "Register New Account"}
+            </button>
+          </div>
+          <form className={styles.SignSwitch} onSubmit={authenticateHandler}>
+            <div className={styles.Form}>
+              <h2>{signInUpSwitch ? "Register a new account" : "Sign In"}</h2>
+              <input
+                type="email"
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                required
+              />
+              <button>{signInUpSwitch ? "REGISTER" : "SIGN IN"}</button>
+            </div>
+
+            {isLoading ? "" : <p>{error}</p>}
+            {!isLoggedIn ? <Redirect to="/buy" /> : null}
+          </form>
+        </div>
+
         {isLoading ? <Spinner /> : ""}
       </div>
     </div>
