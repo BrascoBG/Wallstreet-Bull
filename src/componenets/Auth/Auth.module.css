@@ -1,6 +1,11 @@
 .Auth {
   width: 80%;
   margin: auto;
+  position: relative;
+  animation-name: opac;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 .Form {
   display: flex;
@@ -8,7 +13,6 @@
 }
 .Form input {
   height: 30px;
-  margin: 3px 0px;
   border: 0;
   border-radius: 5px;
   font-size: 20px;
@@ -25,6 +29,11 @@
   height: auto;
   color: #011f2a;
   text-shadow: 1px 3px 3px black;
+  position: relative;
+  animation-name: anime;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 .Auth h2 {
   margin-top: 10px;
@@ -48,7 +57,59 @@
 .Flex {
   display: flex;
   flex-wrap: wrap;
+  margin: 20px 0px;
 }
-.Toggle {
+.SignInput {
+  margin: 7px 0px 20px 0px;
+}
+.Cards {
+  width: 250px;
+  height: 200px;
+  margin: 10px auto;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  text-align: center;
   padding: 10px;
+}
+.Cards:nth-child(1) {
+  background-image: url("../../assets//wall.jpg");
+}
+.Cards:nth-child(2) {
+  background: linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 80%),
+      rgb(255 255 255 / 17%)
+    ),
+    url("../../assets/wallstreet.jpg");
+}
+.Cards:nth-child(3) {
+  background: linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 80%),
+      rgb(255 255 255 / 17%)
+    ),
+    url("../../assets/wallstreet2.jpg");
+}
+.Cards h4 {
+  margin-top: 10px;
+  text-align: center;
+  color: #001c28;
+  opacity: 0.9;
+  text-shadow: 1px 1px 1px black;
+}
+@keyframes anime {
+  0% {
+    top: -200px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+@keyframes opac {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

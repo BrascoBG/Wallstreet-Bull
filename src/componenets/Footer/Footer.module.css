@@ -1,0 +1,17 @@
+.Main {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding-top: 7px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.Items {
+  width: 250px;
+  text-align: center;
+}
+.Info {
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 5px;
+  margin: 0px;
+  text-align: center;
+}

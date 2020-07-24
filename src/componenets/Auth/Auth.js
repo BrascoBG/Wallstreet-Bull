@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import styles from "./Auth.module.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import Spinner from "../Spinner/Spinner";
 import Bull from "../../assets/bull.png";
+import Footer from "../Footer/Footer";
 
 const Auth = (props) => {
   const [email, setEmail] = useState("");
@@ -92,16 +94,17 @@ const Auth = (props) => {
         </h2>
         <div className={styles.Flex}>
           <div className={styles.SignSwitch}>
-            <h3>
-              If you visit this page for first time you can register and become
-              WallStreet Bull
-            </h3>
+            <h3>Register and become a WallStreet Bull</h3>
             <hr />
             <h3>
               If you you are a WallStreet Bull already click the button below to
               SIGN IN
             </h3>
-            <button className={styles.Toggle} onClick={signeInRegisterHandler}>
+            <button
+              type="button"
+              className="btn btn-warning"
+              onClick={signeInRegisterHandler}
+            >
               {signInUpSwitch
                 ? "I have an account already"
                 : "Register New Account"}
@@ -118,22 +121,59 @@ const Auth = (props) => {
                 required
               />
               <input
+                className={styles.SignInput}
                 type="password"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 required
               />
-              <button>{signInUpSwitch ? "REGISTER" : "SIGN IN"}</button>
+              <button type="submit" className="btn btn-success">
+                {signInUpSwitch ? "REGISTER" : "SIGN IN"}
+              </button>
+              <p> {isLoading ? <Spinner /> : ""}</p>
             </div>
 
-            {isLoading ? "" : <p>{error}</p>}
+            {isLoading ? (
+              ""
+            ) : (
+              <p
+                style={{
+                  color: "#d43131",
+                  padding: "10px",
+                  marginTop: "5px",
+                  textShadow: "1px 1px 1px black",
+                }}
+                role="alert"
+              >
+                {error}
+              </p>
+            )}
             {!isLoggedIn ? <Redirect to="/buy" /> : null}
           </form>
         </div>
-
-        {isLoading ? <Spinner /> : ""}
+        <div className={styles.Flex}>
+          <div className={styles.Cards}>
+            <h4>
+              You start with{" "}
+              <span style={{ fontWeight: "bold", fontSize: "30px" }}>
+                $5000
+              </span>
+            </h4>
+          </div>
+          <div className={styles.Cards}>
+            <h4>Trade with shares of the biggest international companies</h4>
+          </div>
+          <div className={styles.Cards}>
+            <h4>
+              Dive into Wall Street atmosphere and become a successfull stock
+              trader
+            </h4>
+          </div>
+        </div>
       </div>
+      <hr />
+      <Footer />
     </div>
   );
 };

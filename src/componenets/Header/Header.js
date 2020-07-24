@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "./Header.module.css";
 import { NavLink } from "react-router-dom";
+import Bull from "../../assets/bull.png";
 
 const Header = (props) => {
   return (
     <div>
-      <h4 className={styles.Logo}>LOGO</h4>
+      <img className={styles.Logo} alt="Logo" src={Bull} />
       <ul className={styles.Ul}>
         <li className={styles.Li}>
           <NavLink activeClassName={styles.active} to="/buy">
