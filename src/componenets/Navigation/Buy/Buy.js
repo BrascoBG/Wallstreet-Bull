@@ -186,7 +186,7 @@ const Buy = (props) => {
 
   return (
     <div>
-      <h1>{loading ? <Spinner /> : `Your money ${displayMoney.toFixed(2)}`}</h1>
+      {loading ? <Spinner /> : <h1>Your money ${displayMoney.toFixed(2)}</h1>}
       <hr />
       <h3>Buy Stock</h3>
       <form onSubmit={fetchData}>

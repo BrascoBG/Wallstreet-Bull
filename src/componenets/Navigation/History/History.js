@@ -6,10 +6,10 @@ const History = (props) => {
 
   useEffect(() => {
     let myHistory = [];
-    let id = props.userId;
+    //let id = props.userId;
     let token = props.token;
-    console.log("ID", id);
-    console.log("TOKEN", token);
+    //console.log("ID", id);
+    //console.log("TOKEN", token);
     axios
       .get(`https://wallstreet-bull.firebaseio.com/history.json?auth=${token}`)
       .then((response) => {
@@ -21,7 +21,6 @@ const History = (props) => {
           (company) => company.userId === props.userId
         );
         setHistory(filteredHistory);
-        console.log(filteredHistory);
       })
       .catch((err) => {
         console.log(err);

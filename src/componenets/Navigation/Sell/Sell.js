@@ -70,23 +70,20 @@ const Sell = (props) => {
       (company) => company.symbol !== symbol || company.userId !== props.userId
     );
     setData(updatedData);
-    // eslint-disable-next-line no-unused-vars
     let resData;
     for (const item of data) {
-      if (item.symbol === symbol) {
-        setHistory([
-          ...history,
-          (resData = {
-            shares: item.shares,
-            buyOrSell: true,
-            companyName: item.companyName,
-            symbol: item.symbol,
-            price: item.price,
-            userId: item.userId,
-          }),
-        ]);
+      if (item.symbol === symbol || item.userId === props.userId) {
+        resData = {
+          shares: item.shares,
+          buyOrSell: true,
+          companyName: item.companyName,
+          symbol: item.symbol,
+          price: item.price,
+          userId: props.userId,
+        };
       }
     }
+    setHistory([...history, resData]);
     axios
       .get(
         `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_583772a9158d43bd9e8f55df5c33a5b3`
@@ -169,7 +166,7 @@ const Sell = (props) => {
     <div>
       <h1>Sell componenet</h1>
 
-      {loading ? <Spinner /> : <h1>Your money {displayMoney.toFixed(2)}</h1>}
+      {loading ? <Spinner /> : <h1>Your money ${displayMoney.toFixed(2)}</h1>}
       {data
         ? // eslint-disable-next-line array-callback-return
           data.map((item) => {
