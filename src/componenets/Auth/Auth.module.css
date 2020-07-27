@@ -30,6 +30,7 @@
   color: #011f2a;
   text-shadow: 1px 3px 3px black;
   position: relative;
+  background-image: linear-gradient(180deg, #ffffffa8, transparent);
   animation-name: anime;
   animation-duration: 2s;
   animation-iteration-count: 1;

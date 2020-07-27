@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Quote from "../../Quote/Quote";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Modal from "../../Modal/Modal";
 import Spinner from "../../Spinner/Spinner";
+import styles from "../Buy/Buy.module.css";
 import axios from "axios";
 
 const Buy = (props) => {
@@ -11,6 +14,7 @@ const Buy = (props) => {
   const [displayMoney, setDisplayMoney] = useState(5000);
   const [loading, setLoading] = useState(true);
   const [history, setHistory] = useState([]);
+  const [modal, setModal] = useState(false);
   let day = new Date().getDate();
   let month = new Date().getMonth();
   let year = new Date().getFullYear();
@@ -184,29 +188,50 @@ const Buy = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myData]);
 
+  const modalHandler = () => {
+    if (company !== "" && shares !== "") {
+      setModal(true);
+    }
+  };
+
   return (
     <div>
-      {loading ? <Spinner /> : <h1>Your money ${displayMoney.toFixed(2)}</h1>}
+      <div className={styles.Money}>
+        <h4>My Money</h4>
+        {!loading ? <Spinner /> : <h1>${displayMoney.toFixed(2)}</h1>}
+      </div>
       <hr />
-      <h3>Buy Stock</h3>
-      <form onSubmit={fetchData}>
-        <input
-          type="text"
-          placeholder="Company"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          required
-        />
-        <input
-          type="number"
-          placeholder="Shares"
-          value={shares}
-          onChange={(e) => setShares(e.target.value)}
-          required
-        />
-        <button>BUY</button>
-      </form>
-      <Quote />
+      <h1 className={styles.Title}>Here you can buy shares</h1>
+      <div className={styles.Flex}>
+        <div className={styles.Child}>
+          <form onSubmit={fetchData}>
+            <h2>Buy Shares</h2>
+            <input
+              type="text"
+              placeholder="Company"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+              required
+            />
+            <input
+              type="number"
+              placeholder="Shares"
+              value={shares}
+              onChange={(e) => setShares(e.target.value)}
+              required
+            />
+            <button onClick={modalHandler}>BUY</button>
+            <Modal status={modal}>
+              <h4>
+                Are you sure you want to buy {shares} shares of {company}?
+              </h4>
+            </Modal>
+          </form>
+        </div>
+        <div className={styles.Child}>
+          <Quote />
+        </div>
+      </div>
     </div>
   );
 };
