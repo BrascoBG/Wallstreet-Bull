@@ -54,7 +54,6 @@ const Buy = (props) => {
           myMoney = myMoney.splice(-1).pop();
           setMoney(...money, myMoney);
         }
-        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -72,7 +71,6 @@ const Buy = (props) => {
           myHistory = myHistory.splice(-1).pop();
           setHistory(...history, myHistory);
         }
-        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -147,6 +145,7 @@ const Buy = (props) => {
     }
     if (updatedMoney !== undefined) {
       setDisplayMoney(updatedMoney);
+      setLoading(false);
     }
     if (company !== "") {
       axios

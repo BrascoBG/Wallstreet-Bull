@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import Spinner from "../../Spinner/Spinner";
 import Quote from "../../Quote/Quote";
 import axios from "axios";
+import styles from "./Sell.module.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Footer from "../../Footer/Footer";
+import Modal from "../../Modal/Modal";
 
 const Sell = (props) => {
   const [data, setData] = useState([]);
@@ -9,6 +13,7 @@ const Sell = (props) => {
   const [displayMoney, setDisplayMoney] = useState(5000);
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     let newData = [];
@@ -40,7 +45,6 @@ const Sell = (props) => {
           myMoney = myMoney.splice(-1).pop();
           setMoney(...money, myMoney);
         }
-        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -100,6 +104,7 @@ const Sell = (props) => {
           }
         }
         setMoney([...money, myMoney]);
+        hideModal();
       })
       .catch((err) => {
         console.log(err);
@@ -130,6 +135,7 @@ const Sell = (props) => {
     }
     if (updatedMoney !== undefined) {
       setDisplayMoney(updatedMoney);
+      setLoading(false);
     }
     if (money !== null) {
       axios
@@ -162,29 +168,71 @@ const Sell = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  const modalHandler = () => {
+    setModal(true);
+  };
+
+  const hideModal = () => {
+    setModal(false);
+  };
+
   return (
     <div>
-      <h1>Sell componenet</h1>
-
-      {loading ? <Spinner /> : <h1>Your money ${displayMoney.toFixed(2)}</h1>}
-      {data
-        ? // eslint-disable-next-line array-callback-return
-          data.map((item) => {
-            if (item.userId === props.userId) {
-              return (
-                <ul key={item.symbol}>
-                  <li>
-                    {item.companyName} - ({item.shares})
-                    <button onClick={() => sellShares(item.symbol)}>
-                      Sell
-                    </button>
-                  </li>
-                </ul>
-              );
-            }
-          })
-        : null}
-      <Quote />
+      <div className={styles.Money}>
+        <h4>My money</h4>
+        {loading ? <Spinner /> : <h1>${displayMoney.toFixed(2)}</h1>}
+      </div>
+      <hr />
+      <div className={styles.Flex}>
+        <div className={styles.ChildOne}>
+          <h2>Shares for selling</h2>
+          <p className={styles.Info}>
+            Check what's the price NOW before selling shares!
+          </p>
+          {data
+            ? // eslint-disable-next-line array-callback-return
+              data.map((item) => {
+                if (item.userId === props.userId) {
+                  return (
+                    <React.Fragment>
+                      <Modal status={modal} clicked={hideModal}>
+                        <h4>Are you sure?</h4>
+                        <button className="btn btn-warning" onClick={hideModal}>
+                          Cancel
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => sellShares(item.symbol)}
+                        >
+                          Yes
+                        </button>
+                      </Modal>
+                      <ul className={styles.Demo} key={item.symbol}>
+                        <li>
+                          <span>{item.shares}</span> shares of{" "}
+                          {item.companyName}, purchased for ${item.price} per
+                          share.{" "}
+                          <button
+                            className="btn btn-danger"
+                            onClick={modalHandler}
+                            // onClick={() => sellShares(item.symbol)}
+                          >
+                            SELL
+                          </button>
+                        </li>
+                        <hr />
+                      </ul>
+                    </React.Fragment>
+                  );
+                }
+              })
+            : null}
+        </div>
+        <div className={styles.Child}>
+          <Quote />
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 };
