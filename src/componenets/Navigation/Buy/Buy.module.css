@@ -19,15 +19,33 @@
   margin-right: 10px;
   color: #004444;
 }
-.Title {
-  text-align: center;
-}
+
 .Flex {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
 }
 .Child {
-  width: 300px;
+  width: 390px;
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 3px 3px 3px rgba(50, 50, 70, 0.5);
+  border-radius: 10px;
+  text-align: center;
+  padding: 20px;
+}
+.Child h2 {
+  color: #004444;
+}
+.Info {
+  color: #ffc107;
+  font-style: italic;
+}
+.InfoP {
+  margin-top: -10px;
+  font-size: small;
+  color: #004444;
+  text-align: left;
 }
 .Child input {
   width: 100%;
@@ -41,4 +59,20 @@
 }
 .Child input:focus {
   outline: none;
+}
+.List {
+  width: 80%;
+  margin: 40px auto;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  border-radius: 5px;
+  color: #004444;
+  text-align: center;
+}
+.List a {
+  text-decoration: none;
+  color: #e1f5ff;
+}
+.List a:hover {
+  color: #004444;
 }

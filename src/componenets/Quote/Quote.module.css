@@ -1,0 +1,13 @@
+.Info {
+  color: #ffc107;
+  font-style: italic;
+}
+.InfoP {
+  margin-top: -10px;
+  font-size: small;
+  color: #004444;
+  text-align: left;
+}
+form {
+  margin-bottom: 5px;
+}
