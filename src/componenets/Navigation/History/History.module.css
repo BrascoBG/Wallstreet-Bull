@@ -1,0 +1,14 @@
+.Main {
+  min-height: 100vh;
+}
+.Main h1 {
+  text-align: center;
+  color: #bdf5ef;
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    #000c045c,
+    transparent
+  );
+  padding: 5px;
+}

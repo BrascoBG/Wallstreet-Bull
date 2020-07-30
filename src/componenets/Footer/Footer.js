@@ -3,6 +3,7 @@ import styles from "./Footer.module.css";
 import linkedIn from "../../assets/linked.png";
 import gitHub from "../../assets/git.png";
 import mail from "../../assets/mail.png";
+import code from "../../assets/code.png";
 
 const Footer = () => {
   return (
@@ -19,13 +20,23 @@ const Footer = () => {
           </a>
         </div>
         <div className={styles.Items}>
-          <h5>Check Code Here</h5>
+          <h5>GitHub</h5>
           <a
             href="https://github.com/BrascoBG"
             target="_blank"
             rel="noopener noreferrer"
           >
             <img src={gitHub} alt="Logo" />
+          </a>
+        </div>
+        <div className={styles.Items}>
+          <h5>Check Code Here</h5>
+          <a
+            href="https://github.com/BrascoBG"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={code} alt="Logo" />
           </a>
         </div>
         <div className={styles.Items}>

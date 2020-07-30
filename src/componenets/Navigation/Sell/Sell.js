@@ -14,6 +14,10 @@ const Sell = (props) => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState(false);
+  let day = new Date().getDate();
+  let month = new Date().getMonth();
+  let year = new Date().getFullYear();
+  let fullDate = `${day}/${month + 1}/${year}`;
 
   useEffect(() => {
     let newData = [];
@@ -84,6 +88,7 @@ const Sell = (props) => {
           symbol: item.symbol,
           price: item.price,
           userId: props.userId,
+          date: fullDate,
         };
       }
     }
