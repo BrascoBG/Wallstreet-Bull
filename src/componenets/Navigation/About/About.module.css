@@ -1,0 +1,63 @@
+.Main {
+  min-height: 100vh;
+}
+.Main h1 {
+  text-align: center;
+  color: #bdf5ef;
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    #000c045c,
+    transparent
+  );
+  padding: 5px;
+  position: relative;
+  animation-name: anime;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+}
+@keyframes anime {
+  0% {
+    top: -200px;
+  }
+  90% {
+    top: 20px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+.About {
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 10px;
+  color: #001c28;
+}
+.About h3 {
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 30px;
+}
+.About h4 {
+  color: #bdf5ef;
+  text-shadow: 1px 1px black;
+}
+.Tech {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  animation-name: opacity;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+}
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

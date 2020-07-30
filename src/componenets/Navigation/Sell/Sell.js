@@ -80,7 +80,7 @@ const Sell = (props) => {
     setData(updatedData);
     let resData;
     for (const item of data) {
-      if (item.symbol === symbol || item.userId === props.userId) {
+      if (item.symbol === symbol && item.userId === props.userId) {
         resData = {
           shares: item.shares,
           buyOrSell: true,
@@ -173,9 +173,9 @@ const Sell = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  const modalHandler = () => {
-    setModal(true);
-  };
+  // const modalHandler = () => {
+  //   setModal(true);
+  // };
 
   const hideModal = () => {
     setModal(false);
@@ -219,7 +219,7 @@ const Sell = (props) => {
                           share.{" "}
                           <button
                             className="btn btn-danger"
-                            onClick={modalHandler}
+                            onClick={() => sellShares(item.symbol)}
                             // onClick={() => sellShares(item.symbol)}
                           >
                             SELL

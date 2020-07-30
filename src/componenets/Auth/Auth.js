@@ -6,6 +6,9 @@ import axios from "axios";
 import Spinner from "../Spinner/Spinner";
 import Bull from "../../assets/bull.png";
 import Footer from "../Footer/Footer";
+import aapl from "../../assets/aapl.png";
+import msft from "../../assets/msft.png";
+import fb from "../../assets/fb.png";
 
 const Auth = (props) => {
   const [email, setEmail] = useState("");
@@ -78,7 +81,7 @@ const Auth = (props) => {
   return (
     <div>
       <div className={styles.Auth}>
-        <h1>
+        <h1 className={styles.AuthTitle}>
           Wall Street{" "}
           <img
             style={{ width: "200px", height: "auto" }}
@@ -87,18 +90,21 @@ const Auth = (props) => {
           />{" "}
           Bull
         </h1>
-        <hr style={{ color: "red" }} />
+        <h1 className={styles.AuthH1}>Stock Exchange Trading Application</h1>
         <h2>
-          Application where you can trade shares of the most famous
-          international comapanies like Apple, Microsoft, Google, etc.
+          An application where you can trade shares of the most famous
+          international companies like{" "}
+          <img width="45px" src={aapl} alt="apple" />{" "}
+          <img width="60px" src={msft} alt="microsoft" />{" "}
+          <img width="50px" src={fb} alt="facebook" />, etc...
         </h2>
         <div className={styles.Flex}>
           <div className={styles.SignSwitch}>
-            <h3>Register and become a WallStreet Bull</h3>
+            <h3>Register and become a Wall Street Bull</h3>
             <hr />
             <h3>
-              If you you are a WallStreet Bull already click the button below to
-              SIGN IN
+              If you you are a Wall Street Bull already click the button below
+              to SIGN IN
             </h3>
             <button
               type="button"
