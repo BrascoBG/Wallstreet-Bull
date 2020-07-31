@@ -38,7 +38,7 @@
   list-style: none;
 }
 h2 {
-  color: #004444;
+  color: #00374c;
 }
 .Demo li {
   list-style: none;
@@ -70,9 +70,14 @@ h2 {
 }
 .Money h4 {
   margin-right: 10px;
-  color: #004444;
+  color: #8dadbd;
 }
 .Info {
   color: #ffc107;
   font-style: italic;
+}
+@media screen and (max-width: 750px) {
+  .ChildOne {
+    margin-bottom: 20px;
+  }
 }

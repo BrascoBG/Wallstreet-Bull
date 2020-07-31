@@ -100,11 +100,11 @@ const Buy = (props) => {
           date: fullDate,
           userId: props.userId,
         };
+        setHistory([...history, resData]);
         setSuccess("Success!");
         setTimeout(() => {
           setSuccess("");
         }, 3000);
-        setHistory([...history, resData]);
         hideModal();
         for (const item of myData) {
           if (item.symbol === resData.symbol && item.userId === props.userId) {

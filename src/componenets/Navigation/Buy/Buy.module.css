@@ -17,7 +17,7 @@
 }
 .Money h4 {
   margin-right: 10px;
-  color: #004444;
+  color: #8dadbd;
 }
 
 .Flex {
@@ -33,9 +33,10 @@
   border-radius: 10px;
   text-align: center;
   padding: 20px;
+  margin: 10px 0px;
 }
 .Child h2 {
-  color: #004444;
+  color: #00374c;
 }
 .Info {
   color: #ffc107;
@@ -66,7 +67,7 @@
   background-color: rgba(255, 255, 255, 0.3);
   padding: 20px;
   border-radius: 5px;
-  color: #004444;
+  color: #00374c;
   text-align: center;
 }
 .List a {

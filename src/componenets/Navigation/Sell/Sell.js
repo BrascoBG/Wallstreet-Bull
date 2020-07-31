@@ -100,7 +100,7 @@ const Sell = (props) => {
       .then((response) => {
         let myMoney;
         for (let item of data) {
-          if (item.symbol === symbol || item.userId === props.userId) {
+          if (item.symbol === symbol && item.userId === props.userId) {
             let calc = displayMoney + item.shares * response.data.latestPrice;
             myMoney = {
               money: calc,
@@ -184,7 +184,7 @@ const Sell = (props) => {
   return (
     <div>
       <div className={styles.Money}>
-        <h4>My money</h4>
+        <h4>My Money</h4>
         {loading ? <Spinner /> : <h1>${displayMoney.toFixed(2)}</h1>}
       </div>
       <hr />

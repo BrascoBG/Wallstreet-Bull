@@ -7,14 +7,14 @@
   padding: 15px;
   list-style: none;
   text-decoration: none;
-  background-color: #006a6a;
+  background-color: #4d869e;
   border-radius: 2px 10px;
 }
 .Li:last-child {
   background-color: tomato;
 }
 .Li:hover {
-  background-color: teal;
+  background-color: #00374c;
 }
 .Logo {
   position: absolute;
@@ -31,4 +31,51 @@
   text-decoration: none;
   color: #d6a825 !important;
   text-decoration: underline !important;
+}
+@media screen and (max-width: 700px) {
+  .Position {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .Hamburger {
+    cursor: pointer;
+    margin: 10px;
+  }
+  .Lines {
+    width: 30px;
+    height: 4px;
+    background: #a7c1cd;
+    margin: 5px;
+    border-radius: 2px;
+  }
+  .Ul {
+    position: fixed;
+    background: #074d7199;
+    height: 420px;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    clip-path: circle(100px at 90% -30%);
+    -webkit-clip-path: circle(100px at 90% -30%);
+    transition: all 0.5s ease-out;
+  }
+  .UlOpen {
+    position: fixed;
+    background: #074d7199;
+    height: 420px;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    clip-path: circle(500px at 90% -20%);
+    -webkit-clip-path: circle(500px at 90% -20%);
+    transition: all 0.5s ease-out;
+  }
+  .Li {
+    width: 150px;
+    margin: 14px;
+  }
 }
