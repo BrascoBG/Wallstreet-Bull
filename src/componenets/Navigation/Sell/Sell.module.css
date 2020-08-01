@@ -76,7 +76,7 @@ h2 {
   color: #ffc107;
   font-style: italic;
 }
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 973px) {
   .ChildOne {
     margin-bottom: 20px;
   }

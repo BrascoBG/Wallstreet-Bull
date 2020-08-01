@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Spinner from "../../Spinner/Spinner";
 import Quote from "../../Quote/Quote";
 import axios from "axios";
@@ -14,6 +15,8 @@ const Sell = (props) => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState(false);
+  const [receivedSymbol, setReceivedSymbol] = useState("");
+  const [logModal, setLogModal] = useState(false);
   let day = new Date().getDate();
   let month = new Date().getMonth();
   let year = new Date().getFullYear();
@@ -35,6 +38,9 @@ const Sell = (props) => {
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.status === 401) {
+          setLogModal(true);
+        }
       });
     let myMoney = [];
     axios
@@ -74,6 +80,7 @@ const Sell = (props) => {
   }, []);
 
   const sellShares = (symbol) => {
+    console.log(symbol, "SellShares");
     let updatedData = data.filter(
       (company) => company.symbol !== symbol || company.userId !== props.userId
     );
@@ -173,16 +180,40 @@ const Sell = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  // const modalHandler = () => {
-  //   setModal(true);
-  // };
+  const modalHandler = (symbol) => {
+    setReceivedSymbol(symbol);
+    setModal(true);
+  };
 
   const hideModal = () => {
     setModal(false);
   };
 
+  let modalTest = (
+    <div>
+      <Modal status={modal} clicked={hideModal}>
+        <h4>Are you sure?</h4>
+        <button className="btn btn-warning" onClick={hideModal}>
+          Cancel
+        </button>
+        <button
+          className="btn btn-danger"
+          onClick={() => sellShares(receivedSymbol)}
+        >
+          Yes
+        </button>
+      </Modal>
+    </div>
+  );
+
   return (
     <div>
+      <Modal status={logModal}>
+        <h4>Please Log in to continue</h4>
+        <Link className="btn btn-success" to="/">
+          OK
+        </Link>
+      </Modal>
       <div className={styles.Money}>
         <h4>My Money</h4>
         {loading ? <Spinner /> : <h1>${displayMoney.toFixed(2)}</h1>}
@@ -190,7 +221,7 @@ const Sell = (props) => {
       <hr />
       <div className={styles.Flex}>
         <div className={styles.ChildOne}>
-          <h2>Shares for selling</h2>
+          <h2>My Wallet</h2>
           <p className={styles.Info}>
             Check what's the price NOW before selling shares!
           </p>
@@ -199,27 +230,16 @@ const Sell = (props) => {
               data.map((item) => {
                 if (item.userId === props.userId) {
                   return (
-                    <React.Fragment>
-                      <Modal status={modal} clicked={hideModal}>
-                        <h4>Are you sure?</h4>
-                        <button className="btn btn-warning" onClick={hideModal}>
-                          Cancel
-                        </button>
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => sellShares(item.symbol)}
-                        >
-                          Yes
-                        </button>
-                      </Modal>
-                      <ul className={styles.Demo} key={item.symbol}>
+                    <React.Fragment key={item.symbol}>
+                      {modalTest}
+                      <ul className={styles.Demo}>
                         <li>
                           <span>{item.shares}</span> shares of{" "}
                           {item.companyName}, purchased for ${item.price} per
                           share.{" "}
                           <button
                             className="btn btn-danger"
-                            onClick={() => sellShares(item.symbol)}
+                            onClick={() => modalHandler(item.symbol)}
                             // onClick={() => sellShares(item.symbol)}
                           >
                             SELL

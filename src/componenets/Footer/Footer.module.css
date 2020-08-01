@@ -15,3 +15,9 @@
   margin: 0px;
   text-align: center;
 }
+@media screen and (max-width: 550px) {
+  .Items {
+    width: 170px;
+    text-align: center;
+  }
+}

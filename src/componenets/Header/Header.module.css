@@ -78,4 +78,9 @@
     width: 150px;
     margin: 14px;
   }
+  .Logo {
+    position: absolute;
+    width: 105px;
+    margin: -40px -10px;
+  }
 }

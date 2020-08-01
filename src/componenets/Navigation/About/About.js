@@ -9,33 +9,8 @@ import boot from "../../../assets/tech/boot.png";
 import git from "../../../assets/tech/git.png";
 import github from "../../../assets/tech/github.png";
 import api from "../../../assets/tech/api.png";
-//import axios from "axios";
 
 const About = () => {
-  // useEffect(() => {
-  //   let arr = [];
-  //   axios
-  //     .get("https://wallstreet-bull.firebaseio.com/demo.json")
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       for (const key in res.data) {
-  //         console.log(key);
-  //         arr.push(res.data[key]);
-  //       }
-  //       console.log(arr);
-  //     })
-  //     .catch((err) => console.log(err));
-  // });
-  // const test = () => {
-  //   let myMoney = {
-  //     money: 6000,
-  //     userId: "456",
-  //   };
-  //   axios
-  //     .post("https://wallstreet-bull.firebaseio.com/demo.json", myMoney)
-  //     .then((response) => console.log(response))
-  //     .catch((err) => console.log(err));
-  // };
   return (
     <React.Fragment>
       {/* <button onClick={test}>Click</button> */}
@@ -45,7 +20,8 @@ const About = () => {
           <h3>Buy shares today and sell them later when the price goes up.</h3>
           <h4>
             Wall Street Bull is a Stock Trading Platform where you can trade
-            shares from the world's most famous companies.
+            shares from the world's most famous companies. You can start trading
+            now with your virtual $5000.
           </h4>
 
           <hr />

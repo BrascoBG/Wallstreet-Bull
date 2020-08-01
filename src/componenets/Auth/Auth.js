@@ -42,6 +42,7 @@ const Auth = (props) => {
         setToken(response.data.idToken);
         setUserId(response.data.localId);
         setIsLoading(false);
+        setLoggedIn(false);
       })
       .catch((error) => {
         console.log(error);
@@ -57,7 +58,6 @@ const Auth = (props) => {
   useEffect(() => {
     props.call(isLoggedIn);
     if (token !== null) {
-      setLoggedIn(false);
       props.call(isLoggedIn, token, userId);
     }
   }, [props, isLoggedIn, token, userId]);
@@ -81,15 +81,10 @@ const Auth = (props) => {
   return (
     <div>
       <div className={styles.Auth}>
-        <h1 className={styles.AuthTitle}>
-          Wall Street{" "}
-          <img
-            style={{ width: "200px", height: "auto" }}
-            src={Bull}
-            alt="Bull"
-          />{" "}
-          Bull
-        </h1>
+        <h1 className={styles.AuthTitle}>Wall Street Bull</h1>
+        <div className={styles.Logo}>
+          <img style={{ width: "200px" }} src={Bull} alt="Bull" />
+        </div>
         <h1 className={styles.AuthH1}>Stock Exchange Trading Application</h1>
         <h2>
           An application where you can trade shares of the most famous
@@ -137,7 +132,7 @@ const Auth = (props) => {
               <button type="submit" className="btn btn-success">
                 {signInUpSwitch ? "REGISTER" : "SIGN IN"}
               </button>
-              <p> {isLoading ? <Spinner /> : ""}</p>
+              <div> {isLoading ? <Spinner /> : ""}</div>
             </div>
 
             {isLoading ? (
@@ -172,8 +167,8 @@ const Auth = (props) => {
           </div>
           <div className={styles.Cards}>
             <h4>
-              Dive into Wall Street atmosphere and become a successfull stock
-              trader
+              Dive into the Wall Street atmosphere and become a successfull
+              stock trader
             </h4>
           </div>
         </div>

@@ -7,6 +7,14 @@
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
 }
+.Logo {
+  width: 200px;
+  margin: 0 auto;
+  position: relative;
+  animation-name: bull;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+}
 .Form {
   display: flex;
   flex-direction: column;
@@ -41,7 +49,7 @@
   font-size: 50px;
   width: 100%;
   height: auto;
-  color: #011f2a;
+  color: #4d889f;
   text-shadow: 1px 3px 3px black;
   position: relative;
   animation-name: scroll;
@@ -131,10 +139,15 @@
   0% {
     left: -400px;
   }
-  90% {
-    left: 50px;
-  }
   100% {
     left: 0px;
+  }
+}
+@keyframes bull {
+  0% {
+    right: -400px;
+  }
+  100% {
+    right: 0px;
   }
 }

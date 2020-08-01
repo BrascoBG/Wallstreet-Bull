@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Quote from "../../Quote/Quote";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "../../Modal/Modal";
@@ -18,6 +19,7 @@ const Buy = (props) => {
   const [modal, setModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState("");
+  const [logModal, setLogModal] = useState(false);
   let day = new Date().getDate();
   let month = new Date().getMonth();
   let year = new Date().getFullYear();
@@ -40,6 +42,9 @@ const Buy = (props) => {
       })
       .catch((err) => {
         console.log(err);
+        if (err.response.status === 401) {
+          setLogModal(true);
+        }
       });
     let myMoney = [];
     axios
@@ -209,6 +214,12 @@ const Buy = (props) => {
 
   return (
     <div>
+      <Modal status={logModal} clicked={hideModal}>
+        <h4>Please Log in to continue</h4>
+        <Link className="btn btn-success" to="/">
+          OK
+        </Link>
+      </Modal>
       <div className={styles.Money}>
         <h4>My Money</h4>
         {loading ? <Spinner /> : <h1>${displayMoney.toFixed(2)}</h1>}
