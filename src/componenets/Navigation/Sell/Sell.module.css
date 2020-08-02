@@ -27,6 +27,7 @@
 }
 .ChildOne {
   width: auto;
+  max-width: 700px;
   background-color: rgba(255, 255, 255, 0.3);
   box-shadow: 3px 3px 3px rgba(50, 50, 70, 0.5);
   border-radius: 10px;
@@ -39,17 +40,49 @@
 }
 h2 {
   color: #00374c;
+  text-align: center;
+  font-weight: bold;
 }
-.Demo li {
+.Card {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.Li {
+  width: 170px;
+  background-color: rgba(50, 50, 70, 0.5);
+  padding: 10px;
   list-style: none;
   color: #fde7a5;
   font-size: 19px;
+  position: relative;
+  margin: 10px;
+  text-align: center;
+  border-radius: 7px;
+  box-shadow: 3px 3px 3px #212121;
 }
-.Demo span {
-  background-color: #00676c;
-  padding: 3px;
-  border-radius: 3px;
+.Shares {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  background-color: #a6c2ce;
+  padding: 1px 13px;
+  border-radius: 50%;
+  color: #1d3f4e;
   font-weight: bold;
+  font-size: 25px;
+}
+.Card span {
+  background-color: #4e829b;
+  padding: 3px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 15px;
+}
+.Symbol {
+  color: #f3b57a;
+  margin: -11px;
 }
 .Money {
   text-align: right;
@@ -75,9 +108,15 @@ h2 {
 .Info {
   color: #ffc107;
   font-style: italic;
+  text-align: center;
 }
 @media screen and (max-width: 973px) {
   .ChildOne {
     margin-bottom: 20px;
+  }
+}
+@media screen and (max-width: 445px) {
+  .Li {
+    width: 120px;
   }
 }

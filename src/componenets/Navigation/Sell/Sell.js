@@ -189,7 +189,7 @@ const Sell = (props) => {
     setModal(false);
   };
 
-  let modalTest = (
+  let modalConfirm = (
     <div>
       <Modal status={modal} clicked={hideModal}>
         <h4>Are you sure?</h4>
@@ -225,33 +225,33 @@ const Sell = (props) => {
           <p className={styles.Info}>
             Check what's the price NOW before selling shares!
           </p>
-          {data
-            ? // eslint-disable-next-line array-callback-return
-              data.map((item) => {
-                if (item.userId === props.userId) {
-                  return (
-                    <React.Fragment key={item.symbol}>
-                      {modalTest}
-                      <ul className={styles.Demo}>
-                        <li>
-                          <span>{item.shares}</span> shares of{" "}
-                          {item.companyName}, purchased for ${item.price} per
-                          share.{" "}
-                          <button
-                            className="btn btn-danger"
-                            onClick={() => modalHandler(item.symbol)}
-                            // onClick={() => sellShares(item.symbol)}
-                          >
-                            SELL
-                          </button>
-                        </li>
+          {modalConfirm}
+          <ul className={styles.Card}>
+            {data
+              ? // eslint-disable-next-line array-callback-return
+                data.map((item, index) => {
+                  if (item.userId === props.userId) {
+                    return (
+                      <li key={index} className={styles.Li}>
+                        <p className={styles.Shares}>{item.shares}</p>
+                        <h5>{item.companyName}</h5>
+                        <p className={styles.Symbol}>({item.symbol})</p>
                         <hr />
-                      </ul>
-                    </React.Fragment>
-                  );
-                }
-              })
-            : null}
+                        <p style={{ fontSize: "15px" }}>
+                          Purchased for: <span>${item.price}</span>
+                        </p>
+                        <button
+                          onClick={() => modalHandler(item.symbol)}
+                          className="btn btn-danger btn-lg btn-block"
+                        >
+                          SELL
+                        </button>
+                      </li>
+                    );
+                  }
+                })
+              : null}
+          </ul>
         </div>
         <div className={styles.Child}>
           <Quote />
