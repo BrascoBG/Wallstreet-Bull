@@ -80,32 +80,18 @@ const Sell = (props) => {
   }, []);
 
   const sellShares = (symbol) => {
-    console.log(symbol, "SellShares");
     let updatedData = data.filter(
       (company) => company.symbol !== symbol || company.userId !== props.userId
     );
     setData(updatedData);
-    let resData;
-    for (const item of data) {
-      if (item.symbol === symbol && item.userId === props.userId) {
-        resData = {
-          shares: item.shares,
-          buyOrSell: true,
-          companyName: item.companyName,
-          symbol: item.symbol,
-          price: item.price,
-          userId: props.userId,
-          date: fullDate,
-        };
-      }
-    }
-    setHistory([...history, resData]);
+
     axios
       .get(
         `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_583772a9158d43bd9e8f55df5c33a5b3`
       )
       .then((response) => {
         let myMoney;
+        let resData;
         for (let item of data) {
           if (item.symbol === symbol && item.userId === props.userId) {
             let calc = displayMoney + item.shares * response.data.latestPrice;
@@ -113,9 +99,19 @@ const Sell = (props) => {
               money: calc,
               userId: props.userId,
             };
+            resData = {
+              shares: item.shares,
+              buyOrSell: true,
+              companyName: item.companyName,
+              symbol: item.symbol,
+              price: response.data.latestPrice,
+              userId: props.userId,
+              date: fullDate,
+            };
           }
         }
         setMoney([...money, myMoney]);
+        setHistory([...history, resData]);
         hideModal();
       })
       .catch((err) => {

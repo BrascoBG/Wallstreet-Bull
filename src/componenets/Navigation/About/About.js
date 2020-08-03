@@ -13,7 +13,6 @@ import api from "../../../assets/tech/api.png";
 const About = () => {
   return (
     <React.Fragment>
-      {/* <button onClick={test}>Click</button> */}
       <div className={styles.Main}>
         <h1>Wall Street Bull</h1>
         <div className={styles.About}>
