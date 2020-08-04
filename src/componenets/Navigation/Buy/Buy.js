@@ -91,6 +91,11 @@ const Buy = (props) => {
       .then((response) => {
         console.log(response);
         let calc = displayMoney - shares * response.data.latestPrice;
+        if (calc < 0) {
+          hideModal();
+          setErrorMessage("You don't have enough money!");
+          return;
+        }
         let myMoney = {
           money: calc,
           userId: props.userId,

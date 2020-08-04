@@ -5,10 +5,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from "../../Modal/Modal";
 import styles from "./History.module.css";
 import Footer from "../../Footer/Footer";
+import Spinner from "../../Spinner/Spinner";
 
 const History = (props) => {
   const [history, setHistory] = useState([]);
   const [logModal, setLogModal] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let myHistory = [];
@@ -24,6 +26,7 @@ const History = (props) => {
           (company) => company.userId === props.userId
         );
         setHistory(filteredHistory);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -44,6 +47,7 @@ const History = (props) => {
       </Modal>
       <main className={styles.Main}>
         <h1>Your Trading History</h1>
+        {loading && <Spinner />}
         <table className="table table-bordered">
           <tbody>
             <tr style={{ backgroundColor: "#ffffff66" }}>
