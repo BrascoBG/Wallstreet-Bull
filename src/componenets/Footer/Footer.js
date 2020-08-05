@@ -32,7 +32,7 @@ const Footer = () => {
         <div className={styles.Items}>
           <h5>Check Code Here</h5>
           <a
-            href="https://github.com/BrascoBG"
+            href="https://github.com/BrascoBG/Wallstreet-Bull"
             target="_blank"
             rel="noopener noreferrer"
           >
