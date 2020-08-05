@@ -2,13 +2,25 @@
 
 Wall Street Bull is a Stock Trading Platform where you can trade shares from the world's most famous companies. You can start trading now with your virtual \$5000.
 
-##
+## Details
 
-This is a Single Page Application built with ReactJS, Functional Components, React Hooks, React Router, REST API, Firebase, Bootstrap, Git, GitHub, HTML5, CSS3, Flexbox, etc...
+This is a Single Page Application built with ReactJS, Functional Components, React Hooks, React Router, REST API, Axios, Firebase, Bootstrap, Git, GitHub, HTML5, CSS3, Flexbox, etc...
 
 ### Authentication
 
-![Auth]()
+![Auth](https://github.com/BrascoBG/Wallstreet-Bull/blob/master/src/assets/screenshots/auth.jpg?raw=true)
+
+### Buy Shares (mobile version)
+
+![Buy](https://github.com/BrascoBG/Wallstreet-Bull/blob/master/src/assets/screenshots/buy.jpg?raw=true)
+
+### Sell Shares
+
+![Sell](https://github.com/BrascoBG/Wallstreet-Bull/blob/master/src/assets/screenshots/sell.jpg?raw=true)
+
+### Trading History
+
+![History](https://github.com/BrascoBG/Wallstreet-Bull/blob/master/src/assets/screenshots/history.jpg?raw=true)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
