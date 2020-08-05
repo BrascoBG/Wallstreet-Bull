@@ -12,10 +12,10 @@ const Buy = (props) => {
   const [myData, setMyData] = useState([]);
   const [company, setCompany] = useState("");
   const [shares, setShares] = useState("");
-  const [money, setMoney] = useState([]);
+  const [money, setMoney] = useState(null);
   const [displayMoney, setDisplayMoney] = useState(5000);
   const [loading, setLoading] = useState(true);
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState(null);
   const [modal, setModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState("");
@@ -46,36 +46,17 @@ const Buy = (props) => {
           setLogModal(true);
         }
       });
-    let myMoney = [];
+    let myMoney;
     axios
       .get(
-        `https://wallstreet-bull.firebaseio.com/money.json?auth=${props.token}`
+        `https://wallstreet-bull.firebaseio.com/money/${props.userId}.json?auth=${props.token}`
       )
       .then((response) => {
-        for (let key in response.data) {
-          myMoney.push([...response.data[key]]);
+        myMoney = response.data;
+        if (myMoney) {
+          setDisplayMoney(myMoney.money);
         }
-        if (response.data !== null) {
-          myMoney = myMoney.splice(-1).pop();
-          setMoney(...money, myMoney);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    let myHistory = [];
-    axios
-      .get(
-        `https://wallstreet-bull.firebaseio.com/history.json?auth=${props.token}`
-      )
-      .then((response) => {
-        for (let key in response.data) {
-          myHistory.push(response.data[key]);
-        }
-        if (response.data !== null) {
-          myHistory = myHistory.splice(-1).pop();
-          setHistory(...history, myHistory);
-        }
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -100,7 +81,8 @@ const Buy = (props) => {
           money: calc,
           userId: props.userId,
         };
-        setMoney([...money, myMoney]);
+        setMoney(myMoney);
+        setDisplayMoney(myMoney.money);
         const resData = {
           shares: parseInt(shares),
           symbol: company.toUpperCase(),
@@ -110,7 +92,7 @@ const Buy = (props) => {
           date: fullDate,
           userId: props.userId,
         };
-        setHistory([...history, resData]);
+        setHistory(resData);
         setSuccess("Success!");
         setTimeout(() => {
           setSuccess("");
@@ -147,20 +129,10 @@ const Buy = (props) => {
   };
 
   useEffect(() => {
-    let updatedMoney;
-    for (const item of money) {
-      if (item.userId === props.userId) {
-        updatedMoney = item.money;
-      }
-    }
-    if (updatedMoney !== undefined) {
-      setDisplayMoney(updatedMoney);
-      setLoading(false);
-    }
     if (company !== "") {
       axios
-        .post(
-          `https://wallstreet-bull.firebaseio.com/money.json?auth=${props.token}`,
+        .put(
+          `https://wallstreet-bull.firebaseio.com/money/${props.userId}.json?auth=${props.token}`,
           money
         )
         .then((response) => {
@@ -177,7 +149,7 @@ const Buy = (props) => {
     if (company !== "") {
       axios
         .post(
-          `https://wallstreet-bull.firebaseio.com/history.json?auth=${props.token}`,
+          `https://wallstreet-bull.firebaseio.com/history/${props.userId}.json?auth=${props.token}`,
           history
         )
         .then((response) => {

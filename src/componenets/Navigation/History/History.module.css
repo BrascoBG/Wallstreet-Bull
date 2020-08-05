@@ -12,6 +12,12 @@
   );
   padding: 5px;
 }
+.Button {
+  display: flex;
+}
+.Button button {
+  margin: 10px auto;
+}
 @media screen and (max-width: 600px) {
   .Main h1 {
     margin-top: 30px;

@@ -16,16 +16,14 @@ const History = (props) => {
     let myHistory = [];
     let token = props.token;
     axios
-      .get(`https://wallstreet-bull.firebaseio.com/history.json?auth=${token}`)
+      .get(
+        `https://wallstreet-bull.firebaseio.com/history/${props.userId}.json?auth=${token}`
+      )
       .then((response) => {
         for (let key in response.data) {
-          myHistory.push([...response.data[key]]);
+          myHistory.push(response.data[key]);
         }
-        myHistory = myHistory.splice(-1).pop();
-        const filteredHistory = myHistory.filter(
-          (company) => company.userId === props.userId
-        );
-        setHistory(filteredHistory);
+        setHistory(myHistory);
         setLoading(false);
       })
       .catch((err) => {
@@ -36,6 +34,20 @@ const History = (props) => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const clearHistory = () => {
+    axios
+      .delete(
+        `https://wallstreet-bull.firebaseio.com/history/${props.userId}.json?auth=${props.token}`
+      )
+      .then((response) => {
+        console.log(response);
+        setHistory(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div>
@@ -84,6 +96,13 @@ const History = (props) => {
               : ""}
           </tbody>
         </table>
+        {history ? (
+          <div className={styles.Button}>
+            <button className="btn btn-warning" onClick={clearHistory}>
+              Clear History
+            </button>
+          </div>
+        ) : null}
       </main>
       <div className={styles.Foot}>
         <Footer />
