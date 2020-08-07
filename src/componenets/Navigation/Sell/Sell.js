@@ -26,15 +26,13 @@ const Sell = (props) => {
     let newData = [];
     axios
       .get(
-        `https://wallstreet-bull.firebaseio.com/orders.json?auth=${props.token}`
+        `https://wallstreet-bull.firebaseio.com/orders/${props.userId}.json?auth=${props.token}`
       )
       .then((response) => {
-        console.log(response);
         for (let key in response.data) {
-          newData.push([...response.data[key]]);
+          newData.push(response.data[key]);
         }
-        newData = newData.splice(-1).pop();
-        setData(...data, newData);
+        setData(newData);
       })
       .catch((err) => {
         console.log(err);
@@ -90,10 +88,25 @@ const Sell = (props) => {
             };
           }
         }
+        deleteData(symbol);
         setMoney(myMoney);
         setDisplayMoney(myMoney.money);
         setHistory(resData);
         hideModal();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const deleteData = (symbol) => {
+    const lowerCaseSymbol = symbol.toLowerCase();
+    axios
+      .delete(
+        `https://wallstreet-bull.firebaseio.com/orders/${props.userId}/${lowerCaseSymbol}.json?auth=${props.token}`
+      )
+      .then((response) => {
+        console.log(response);
       })
       .catch((err) => {
         console.log(err);
@@ -131,21 +144,6 @@ const Sell = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [money]);
-
-  useEffect(() => {
-    axios
-      .post(
-        `https://wallstreet-bull.firebaseio.com/orders.json?auth=${props.token}`,
-        data
-      )
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
 
   const modalHandler = (symbol) => {
     setReceivedSymbol(symbol);

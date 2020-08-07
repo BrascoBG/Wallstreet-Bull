@@ -29,15 +29,14 @@ const Buy = (props) => {
     let fireData = [];
     axios
       .get(
-        `https://wallstreet-bull.firebaseio.com/orders.json?auth=${props.token}`
+        `https://wallstreet-bull.firebaseio.com/orders/${props.userId}.json?auth=${props.token}`
       )
       .then((response) => {
         for (let key in response.data) {
-          fireData.push([...response.data[key]]);
+          fireData.push(response.data[key]);
         }
         if (response.data !== null) {
-          fireData = fireData.splice(-1).pop();
-          setMyData(...myData, fireData);
+          setMyData(fireData);
         }
       })
       .catch((err) => {
@@ -70,7 +69,6 @@ const Buy = (props) => {
     axios
       .get(API)
       .then((response) => {
-        console.log(response);
         let calc = displayMoney - shares * response.data.latestPrice;
         if (calc < 0) {
           hideModal();
@@ -102,9 +100,9 @@ const Buy = (props) => {
           if (item.symbol === resData.symbol && item.userId === props.userId) {
             item.shares += +shares;
             axios
-              .post(
-                `https://wallstreet-bull.firebaseio.com/orders.json?auth=${props.token}`,
-                myData
+              .patch(
+                `https://wallstreet-bull.firebaseio.com/orders/${props.userId}/${company}.json?auth=${props.token}`,
+                { shares: item.shares }
               )
               .then((response) => {
                 console.log(response);
@@ -118,6 +116,7 @@ const Buy = (props) => {
           }
         }
         setMyData([...myData, resData]);
+        saveNewData(resData);
         setCompany("");
         setShares("");
       })
@@ -162,22 +161,19 @@ const Buy = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
 
-  useEffect(() => {
-    if (company !== "") {
-      axios
-        .post(
-          `https://wallstreet-bull.firebaseio.com/orders.json?auth=${props.token}`,
-          myData
-        )
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [myData]);
+  const saveNewData = (data) => {
+    axios
+      .put(
+        `https://wallstreet-bull.firebaseio.com/orders/${props.userId}/${company}.json?auth=${props.token}`,
+        data
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const modalHandler = (e) => {
     e.preventDefault();
