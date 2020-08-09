@@ -37,7 +37,6 @@ const Auth = (props) => {
     axios
       .post(url, authData)
       .then((response) => {
-        console.log(response);
         setSignInUpSwitch(false);
         setToken(response.data.idToken);
         setUserId(response.data.localId);

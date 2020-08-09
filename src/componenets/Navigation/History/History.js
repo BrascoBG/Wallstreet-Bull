@@ -41,7 +41,6 @@ const History = (props) => {
         `https://wallstreet-bull.firebaseio.com/history/${props.userId}.json?auth=${props.token}`
       )
       .then((response) => {
-        console.log(response);
         setHistory(response.data);
       })
       .catch((error) => {

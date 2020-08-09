@@ -35,7 +35,6 @@ const Sell = (props) => {
         setData(newData);
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 401) {
           setLogModal(true);
         }
@@ -52,9 +51,7 @@ const Sell = (props) => {
         }
         setLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -105,9 +102,7 @@ const Sell = (props) => {
       .delete(
         `https://wallstreet-bull.firebaseio.com/orders/${props.userId}/${lowerCaseSymbol}.json?auth=${props.token}`
       )
-      .then((response) => {
-        console.log(response);
-      })
+      .then((response) => {})
       .catch((err) => {
         console.log(err);
       });
@@ -119,12 +114,8 @@ const Sell = (props) => {
         `https://wallstreet-bull.firebaseio.com/history/${props.userId}.json?auth=${props.token}`,
         history
       )
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((response) => {})
+      .catch((err) => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
 
@@ -135,9 +126,7 @@ const Sell = (props) => {
           `https://wallstreet-bull.firebaseio.com/money/${props.userId}.json?auth=${props.token}`,
           money
         )
-        .then((response) => {
-          console.log(response);
-        })
+        .then((response) => {})
         .catch((err) => {
           console.log(err);
         });

@@ -104,9 +104,7 @@ const Buy = (props) => {
                 `https://wallstreet-bull.firebaseio.com/orders/${props.userId}/${company}.json?auth=${props.token}`,
                 { shares: item.shares }
               )
-              .then((response) => {
-                console.log(response);
-              })
+              .then((response) => {})
               .catch((err) => {
                 console.log(err);
               });
@@ -134,9 +132,7 @@ const Buy = (props) => {
           `https://wallstreet-bull.firebaseio.com/money/${props.userId}.json?auth=${props.token}`,
           money
         )
-        .then((response) => {
-          console.log(response);
-        })
+        .then((response) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -151,9 +147,7 @@ const Buy = (props) => {
           `https://wallstreet-bull.firebaseio.com/history/${props.userId}.json?auth=${props.token}`,
           history
         )
-        .then((response) => {
-          console.log(response);
-        })
+        .then((response) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -167,9 +161,7 @@ const Buy = (props) => {
         `https://wallstreet-bull.firebaseio.com/orders/${props.userId}/${company}.json?auth=${props.token}`,
         data
       )
-      .then((response) => {
-        console.log(response);
-      })
+      .then((response) => {})
       .catch((err) => {
         console.log(err);
       });
