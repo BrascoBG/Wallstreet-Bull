@@ -131,7 +131,7 @@ const Auth = (props) => {
               <button type="submit" className="btn btn-success">
                 {signInUpSwitch ? "REGISTER" : "SIGN IN"}
               </button>
-              <div> {!isLoading ? <Spinner /> : ""}</div>
+              <div> {isLoading ? <Spinner /> : ""}</div>
             </div>
 
             {isLoading ? (
