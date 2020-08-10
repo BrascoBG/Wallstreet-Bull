@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/Wallstreet-Bull/static/css/main.acd542e1.chunk.css",
+    "main.js": "/Wallstreet-Bull/static/js/main.e18ed06f.chunk.js",
+    "main.js.map": "/Wallstreet-Bull/static/js/main.e18ed06f.chunk.js.map",
+    "runtime-main.js": "/Wallstreet-Bull/static/js/runtime-main.8a71acb3.js",
+    "runtime-main.js.map": "/Wallstreet-Bull/static/js/runtime-main.8a71acb3.js.map",
+    "static/css/2.af3c1da9.chunk.css": "/Wallstreet-Bull/static/css/2.af3c1da9.chunk.css",
+    "static/js/2.52871e34.chunk.js": "/Wallstreet-Bull/static/js/2.52871e34.chunk.js",
+    "static/js/2.52871e34.chunk.js.map": "/Wallstreet-Bull/static/js/2.52871e34.chunk.js.map",
+    "index.html": "/Wallstreet-Bull/index.html",
+    "precache-manifest.2e16596ebf03cad8ca1915378945681f.js": "/Wallstreet-Bull/precache-manifest.2e16596ebf03cad8ca1915378945681f.js",
+    "service-worker.js": "/Wallstreet-Bull/service-worker.js",
+    "static/css/2.af3c1da9.chunk.css.map": "/Wallstreet-Bull/static/css/2.af3c1da9.chunk.css.map",
+    "static/css/main.acd542e1.chunk.css.map": "/Wallstreet-Bull/static/css/main.acd542e1.chunk.css.map",
+    "static/js/2.52871e34.chunk.js.LICENSE.txt": "/Wallstreet-Bull/static/js/2.52871e34.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/Wallstreet-Bull/static/media/bg.5f4336b3.jpg",
+    "static/media/bull.png": "/Wallstreet-Bull/static/media/bull.26502b6c.png",
+    "static/media/msft.png": "/Wallstreet-Bull/static/media/msft.030c3347.png",
+    "static/media/Auth.module.css": "/Wallstreet-Bull/static/media/wallstreet2.dfb3ac23.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8a71acb3.js",
+    "static/css/2.af3c1da9.chunk.css",
+    "static/js/2.52871e34.chunk.js",
+    "static/css/main.acd542e1.chunk.css",
+    "static/js/main.e18ed06f.chunk.js"
+  ]
+}
