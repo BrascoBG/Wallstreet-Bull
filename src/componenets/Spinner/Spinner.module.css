@@ -39,3 +39,8 @@
     transform: rotate(360deg);
   }
 }
+@media screen and (max-width: 1000px) {
+  .Loader {
+    font-size: 3px;
+  }
+}

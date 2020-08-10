@@ -44,7 +44,7 @@ const Quote = (props) => {
           value={company}
         />
         <p className={styles.InfoP}>
-          Symbol like: "aapl", "msft", "fb", etc...
+          Symbol like: "aapl", "msft", "fb", "dis", "ko" etc...
         </p>
         <button className="btn btn-warning btn-lg btn-block">
           Check Price

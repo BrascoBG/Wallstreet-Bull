@@ -158,7 +158,9 @@ const Buy = (props) => {
   const saveNewData = (data) => {
     axios
       .put(
-        `https://wallstreet-bull.firebaseio.com/orders/${props.userId}/${company}.json?auth=${props.token}`,
+        `https://wallstreet-bull.firebaseio.com/orders/${
+          props.userId
+        }/${company.toLowerCase()}.json?auth=${props.token}`,
         data
       )
       .then((response) => {})
@@ -205,7 +207,7 @@ const Buy = (props) => {
               required
             />
             <p className={styles.InfoP}>
-              Symbol like: "aapl", "msft", "fb", etc...
+              Symbol like: "aapl", "msft", "fb", "dis", "ko" etc...
             </p>
             <input
               type="number"
