@@ -2,7 +2,7 @@
   "name": "wallstreet-bull",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://BrascoBG.github.io/Wallstreet-Bull",
+  "homepage": "https://BrascoBG.github.io/Wallstreet-Bull-Live",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
