@@ -101,7 +101,9 @@ const Buy = (props) => {
             item.shares += +shares;
             axios
               .patch(
-                `https://wallstreet-bull.firebaseio.com/orders/${props.userId}/${company}.json?auth=${props.token}`,
+                `https://wallstreet-bull.firebaseio.com/orders/${
+                  props.userId
+                }/${company.toLowerCase()}.json?auth=${props.token}`,
                 { shares: item.shares }
               )
               .then((response) => {})
