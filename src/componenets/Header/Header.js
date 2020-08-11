@@ -11,6 +11,10 @@ const Header = (props) => {
     setNavbar(() => setNavbar(!navbar));
   };
 
+  const burgerClose = () => {
+    setNavbar(false);
+  };
+
   return (
     <div className={styles.Nav}>
       <Backdrop show={navbar} clicked={navBurger} />
@@ -24,22 +28,38 @@ const Header = (props) => {
       <img className={styles.Logo} alt="Logo" src={Bull} />
       <ul className={navbar ? styles.UlOpen : styles.Ul}>
         <li className={styles.Li}>
-          <NavLink activeClassName={styles.active} to="/buy">
+          <NavLink
+            activeClassName={styles.active}
+            to="/buy"
+            onClick={burgerClose}
+          >
             Buy Stocks
           </NavLink>
         </li>
         <li className={styles.Li}>
-          <NavLink activeClassName={styles.active} to="/sell">
+          <NavLink
+            activeClassName={styles.active}
+            to="/sell"
+            onClick={burgerClose}
+          >
             Sell Stocks
           </NavLink>
         </li>
         <li className={styles.Li}>
-          <NavLink activeClassName={styles.active} to="/history">
+          <NavLink
+            activeClassName={styles.active}
+            to="/history"
+            onClick={burgerClose}
+          >
             History
           </NavLink>
         </li>
         <li className={styles.Li}>
-          <NavLink activeClassName={styles.active} to="/about">
+          <NavLink
+            activeClassName={styles.active}
+            to="/about"
+            onClick={burgerClose}
+          >
             About
           </NavLink>
         </li>
