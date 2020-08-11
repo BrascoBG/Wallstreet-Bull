@@ -24,38 +24,22 @@ const Header = (props) => {
       <img className={styles.Logo} alt="Logo" src={Bull} />
       <ul className={navbar ? styles.UlOpen : styles.Ul}>
         <li className={styles.Li}>
-          <NavLink
-            activeClassName={styles.active}
-            to="/buy"
-            onClick={navBurger}
-          >
+          <NavLink activeClassName={styles.active} to="/buy">
             Buy Stocks
           </NavLink>
         </li>
         <li className={styles.Li}>
-          <NavLink
-            activeClassName={styles.active}
-            to="/sell"
-            onClick={navBurger}
-          >
+          <NavLink activeClassName={styles.active} to="/sell">
             Sell Stocks
           </NavLink>
         </li>
         <li className={styles.Li}>
-          <NavLink
-            activeClassName={styles.active}
-            to="/history"
-            onClick={navBurger}
-          >
+          <NavLink activeClassName={styles.active} to="/history">
             History
           </NavLink>
         </li>
         <li className={styles.Li}>
-          <NavLink
-            activeClassName={styles.active}
-            to="/about"
-            onClick={navBurger}
-          >
+          <NavLink activeClassName={styles.active} to="/about">
             About
           </NavLink>
         </li>
