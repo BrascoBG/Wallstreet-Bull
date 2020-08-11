@@ -6,9 +6,11 @@ import Backdrop from "../Backdrop/Backdrop";
 
 const Header = (props) => {
   const [navbar, setNavbar] = useState(false);
+
   const navBurger = () => {
     setNavbar(() => setNavbar(!navbar));
   };
+
   return (
     <div className={styles.Nav}>
       <Backdrop show={navbar} clicked={navBurger} />
@@ -22,22 +24,38 @@ const Header = (props) => {
       <img className={styles.Logo} alt="Logo" src={Bull} />
       <ul className={navbar ? styles.UlOpen : styles.Ul}>
         <li className={styles.Li}>
-          <NavLink activeClassName={styles.active} to="/buy">
+          <NavLink
+            activeClassName={styles.active}
+            to="/buy"
+            onClick={navBurger}
+          >
             Buy Stocks
           </NavLink>
         </li>
         <li className={styles.Li}>
-          <NavLink activeClassName={styles.active} to="/sell">
+          <NavLink
+            activeClassName={styles.active}
+            to="/sell"
+            onClick={navBurger}
+          >
             Sell Stocks
           </NavLink>
         </li>
         <li className={styles.Li}>
-          <NavLink activeClassName={styles.active} to="/history">
+          <NavLink
+            activeClassName={styles.active}
+            to="/history"
+            onClick={navBurger}
+          >
             History
           </NavLink>
         </li>
         <li className={styles.Li}>
-          <NavLink activeClassName={styles.active} to="/about">
+          <NavLink
+            activeClassName={styles.active}
+            to="/about"
+            onClick={navBurger}
+          >
             About
           </NavLink>
         </li>
