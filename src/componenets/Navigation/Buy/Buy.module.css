@@ -77,3 +77,8 @@
 .List a:hover {
   color: #ffc107;
 }
+@media screen and (max-width: 500px) {
+  .List {
+    font-size: 23px;
+  }
+}

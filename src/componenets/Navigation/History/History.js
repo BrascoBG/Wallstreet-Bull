@@ -59,7 +59,7 @@ const History = (props) => {
       <main className={styles.Main}>
         <h1>Your Trading History</h1>
         {loading && <Spinner />}
-        <table className="table table-bordered">
+        <table className="table table-bordered table-responsive-md">
           <tbody>
             <tr style={{ backgroundColor: "#ffffff66" }}>
               <th>Company</th>

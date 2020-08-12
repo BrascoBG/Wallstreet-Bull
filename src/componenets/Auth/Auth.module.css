@@ -26,6 +26,7 @@
   font-size: 20px;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
 }
 .Form input:focus {
   outline: none;
@@ -149,5 +150,19 @@
   }
   100% {
     right: 0px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .AuthTitle {
+    font-size: 50px;
+  }
+  .AuthH1 {
+    font-size: 35px;
+  }
+  .Auth h2 {
+    font-size: 25px;
+  }
+  .SignSwitch h3 {
+    font-size: 22px;
   }
 }
